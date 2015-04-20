@@ -20,9 +20,9 @@
             <div class="">
 			<a href="admin-gorevler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Hepsi</a>
             <a href="admin-gorev-ekle.php" onclick="fnClickAddRow();" class="btn btn-primary ">Ekle</a>
-			<a href="javascript:void(0);" onclick="fnClickAddRow();" class="btn btn-primary ">Sil</a>
+			<a href="admin-gorev-sil.php" onclick="fnClickAddRow();" class="btn btn-primary ">Sil</a>
 			<a href="admin-gorev-silinenler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Silinenler</a>
-			<a href="javascript:void(0);" onclick="fnClickAddRow();" class="btn btn-primary ">Arşivle</a>
+			<a href="admin-gorev-arsivle.php" onclick="fnClickAddRow();" class="btn btn-primary ">Arşivle</a>
 			<a href="admin-gorev-arsivlenenler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Arsivlenler</a>
             </div>
 			</br>
@@ -35,8 +35,8 @@
             <table class="table table-striped table-bordered table-hover " id="editable" >
             <thead>
             <tr>
-                <th>Musteri Adı</th>
-                <th>Blog Adı</th>
+                <th>Müsteri Adı</th>
+                <th>Blog Adı/Yazarı</th>
                 <th>Tarih</th>
                 <th>Anahtar Kelime</th>
                 <th>URL</th>
@@ -48,14 +48,14 @@
 			<tbody>
             <tr class="gradeX">
 			<?php
-			$getBlogs =  mysql_query("SELECT users.name, users.domain, blogs.date, blogs.tags, url, status FROM blogs,users where user_id=id and user_id =1") or die(mysql_error());
+			$getBlogs =  mysql_query("SELECT customer, blog, tags, url, topic, aim, date, status FROM assignment") or die(mysql_error());
 	
 	
 						while($row= mysql_fetch_array($getBlogs))
 						{				echo"<tr>";
 										
-										echo"<td>".$row['name'] . " </td>";
-										echo"<td>".$row['domain'] . " </td>";
+										echo"<td>".$row['customer'] . " </td>";
+										echo"<td>".$row['blog'] . " </td>";
 										echo"<td>".$row['date'] . " </td>";
 										echo"<td>".$row['tags'] . " </td>";
 										echo"<td>".$row['url'] . " </td>";

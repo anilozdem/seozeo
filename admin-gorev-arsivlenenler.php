@@ -1,96 +1,96 @@
 <?PHP include 'header.php'; ?>
+<?php require('config.php'); ?>
+<head>
 
-</br></br></br>
-<div class="wrapper wrapper-content animated fadeInRight">     
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-				
-					<div class="ibox-content">
-						<div class="">
-							<a href="admin-gorevler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Hepsi</a>
-							<a href="admin-gorev-ekle.php" onclick="fnClickAddRow();" class="btn btn-primary ">Ekle</a>
-							<a href="javascript:void(0);" onclick="fnClickAddRow();" class="btn btn-primary ">Sil</a>
-							<a href="admin-gorev-silinenler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Silinenler</a>
-							<a href="javascript:void(0);" onclick="fnClickAddRow();" class="btn btn-primary ">Arşivle</a>
-							<a href="admin-gorev-arsivlenenler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Arsivlenler</a>
-						</div>
-						<div class="row" style="margin-bottom:10px;">
-							<div class="col-lg-6">
-									<div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-									 <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
-							</div>	
-						</div>
-							<table class="table table-striped table-bordered table-hover " id="editable" >
-								<thead>
-									<tr>
-										<th>Musteri Adi</th>
-										<th>Blog Adi</th>
-										<th>Tarih</th>
-										<th>Anahtar Kelime</th>
-										<th>URL</th>
-										<th>Durum</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr class="gradeX">
-										<td>Evmanya</td>
-										<td>neclasolen.com</td>
-										<td>15.03.2015</td>
-										<td>Dolap</td>
-										<td>www.evmanya.com/dolap</td>
-										<td>Yayinlandi</td>
-									</tr>
-									<tr class="gradeC">
-										<td>Chip</td>
-										<td>aorhan.com</td>
-										<td>20.03.2015</td>
-										<td>Samsung telefon</td>
-										<td>www.chip.com.tr/samsung-telefon</td>
-										<td>Yayinlandi</td>
-									</tr>           
-									<tr class="gradeA">
-										<td>Chip</td>
-										<td>aorhan.com</td>
-										<td>20.03.2015</td>
-										<td>Samsung telefon</td>
-										<td>www.chip.com.tr/samsung-telefon</td>
-										<td>Yayinlandi</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Chip</td>
-										<td>aorhan.com</td>
-										<td>20.03.2015</td>
-										<td>Samsung telefon</td>
-										<td>www.chip.com.tr/samsung-telefon</td>
-										<td>Yayinlandi</td>
-									</tr>
-									<tr class="gradeA">
-										<td>Chip</td>
-										<td>aorhan.com</td>
-										<td>20.03.2015</td>
-										<td>Samsung telefon</td>
-										<td>www.chip.com.tr/samsung-telefon</td>
-										<td>Yayinlandi</td>
-									</tr>
-			 
-								</tbody>           
-							</table>
+    <!-- Data Tables -->
+    <link href="css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
+    <link href="css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
+	
+</head>
+<body>
+			</br></br></br></br>
+			        <div class="wrapper wrapper-content animated fadeInRight">
+            
+            <div class="row">
+            <div class="col-lg-12">
+            
+            
+            <div class="ibox-content">
+            <div class="">
+			<a href="admin-gorevler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Hepsi</a>
+            <a href="admin-gorev-ekle.php" onclick="fnClickAddRow();" class="btn btn-primary ">Ekle</a>
+			<a href="admin-gorev-sil.php" onclick="fnClickAddRow();" class="btn btn-primary ">Sil</a>
+			<a href="admin-gorev-silinenler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Silinenler</a>
+			<a href="admin-gorev-arsivle.php" onclick="fnClickAddRow();" class="btn btn-primary ">Arşivle</a>
+			<a href="admin-gorev-arsivlenenler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Arsivlenler</a>
+            </div>
+			</br>
+			<div class="row" style="margin-bottom:10px;">
+				<div class="col-lg-6">
+						<div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
+						 <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+				</div>	
+			</div>
+            <table class="table table-striped table-bordered table-hover " id="editable" >
+            <thead>
+            <tr>
+                <th>Müsteri Adı</th>
+                <th>Blog Adı/Yazarı</th>
+                <th>Tarih</th>
+                <th>Anahtar Kelime</th>
+                <th>URL</th>
+				<th>Durum</th>
+            </tr>
+			</thead>
+			
+			
+			<tbody>
+            <tr class="gradeX">
+			<?php
+			$getBlogs =  mysql_query("SELECT customer, blog, tags, url, topic, aim, date, status FROM assignment where status='Arşivlendi'") or die(mysql_error());
+	
+	
+						while($row= mysql_fetch_array($getBlogs))
+						{				echo"<tr>";
+										
+										echo"<td>".$row['customer'] . " </td>";
+										echo"<td>".$row['blog'] . " </td>";
+										echo"<td>".$row['date'] . " </td>";
+										echo"<td>".$row['tags'] . " </td>";
+										echo"<td>".$row['url'] . " </td>";
+										echo"<td>".$row['status'] . " </td></tr>";
+										
+						}
 						
-									<div class="btn-group">
-											<button type="button" class="btn btn-white"><i class="fa fa-chevron-left"></i></button>
-											<button class="btn btn-white">1</button>
-											<button class="btn btn-white  active">2</button>
-											<button class="btn btn-white">3</button>
-											<button class="btn btn-white">4</button>
-											<button type="button" class="btn btn-white"><i class="fa fa-chevron-right"></i> </button>
-									</div>
-					</div>
+						echo "</table>";
+			?>
+          
+           
+              
+ 
+            </tbody>
+            
+            </table>
+
+            </div>
+						<div class="btn-group">
+                                <button type="button" class="btn btn-white"><i class="fa fa-chevron-left"></i></button>
+                                <button class="btn btn-white">1</button>
+                                <button class="btn btn-white  active">2</button>
+                                <button class="btn btn-white">3</button>
+                                <button class="btn btn-white">4</button>
+                                <button type="button" class="btn btn-white"><i class="fa fa-chevron-right"></i> </button>
+                        </div>
+            </div>
+            </div>
             </div>
         </div>
-    </div>
-</div>
         
+
+        </div>
+        </div>
+
 
 
     <!-- Mainly scripts -->

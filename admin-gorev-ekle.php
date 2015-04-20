@@ -1,3 +1,4 @@
+<?php require('config.php'); ?>
 <?PHP include 'header.php'; ?>
 
 </br></br></br></br>
@@ -13,35 +14,89 @@
                                     <button class="btn btn-sm btn-primary pull-left m-t-n-xs" type="submit"><strong>Ekstra Anahtar Kelime Ekle</strong></button>                        
                                 </div>
 								</br></br>
-                                <form role="form">
-									<div class="form-group"><label>Musteri</label>
-                                    <div><select class="form-control" name="account">
-                                        <option>Evmanya</option>
-                                        <option>Chip</option>
-                                        <option>TRT</option>
-                                        <option>Yali Spor</option>
-                                    </select>
-                                    </div>
-									</div>
-									<div class="form-group"><label>Blog Adi</label>
-                                    <div><select class="form-control" name="account">
-                                        <option>Evmanya</option>
-                                        <option>Chip</option>
-                                        <option>TRT</option>
-                                        <option>Yali Spor</option>
-                                    </select>
-                                    </div>
-									</div>
-                                    <div class="form-group"><label>1.Anahtar Kelime</label> <input type="email" placeholder="Enter email" class="form-control"></div>
-									<div class="form-group"><label>1.Anahtar Kelimeye Eklenecek URL</label> <input type="email" placeholder="Enter email" class="form-control"></div>
-                                    <div class="form-group"><label>Yazinin Konusu</label> <input type="password" placeholder="Password" class="form-control"></div>
-                                    <div class="form-group"><label>Yazinin Yazilma Amaci</label> <input type="password" placeholder="Password" class="form-control"></div>
-                                    <div class="form-group"><label>Tarih</label> <input type="password" placeholder="Password" class="form-control"></div>
+                               
+																		
+									<?php 
+									$checkData =  mysql_query("SELECT cust_name FROM customers") or die(mysql_error());	
+												
+									echo   '<form role="form" action="admin-gorev-ekle.php" method="post">
+											<div class="form-group"><label>Müsteri</label> 
+											<select class="form-control" name="customer">';
+											while($row= mysql_fetch_array($checkData))
+									{
+											echo "<option class=\"form-control\" value=\"$row[cust_name]\">$row[cust_name]</option>";
+											
+									}
+									echo "</select></div>";
+									
+									
+									?>
+									
+                                  
+									
+									
+									<?php 
+									$checkData =  mysql_query("SELECT name FROM blogs") or die(mysql_error());	
+												
+									echo   '<div class="form-group"><label>Blog Adı/Blog Sahibi</label> 
+											<select class="form-control" name="blog">';
+											while($row= mysql_fetch_array($checkData))
+									{
+											echo "<option class=\"form-control\" value=\"$row[name]\">$row[name]</option>";
+											
+									}
+									echo "</select></div>";
+									
+									
+									?>
+									
+									
+									
+									
+                                    <div class="form-group"><label>Anahtar Kelime</label> <input type="text" name="tags" placeholder="Eğitim, Sağlık, Teknoloji..." class="form-control"></div>
+									<div class="form-group"><label>Anahtar Kelimeye Eklenecek URL</label> <input name="url" type="text" placeholder="URL" class="form-control"></div>
+                                    <div class="form-group"><label>Yazınin Konusu</label> <input type="text" name="topic" placeholder="Yazının Konusu" class="form-control"></div>
+                                    <div class="form-group"><label>Yazınin Yazılma Amacı</label> <input name="aim" type="text" placeholder="Amacı" class="form-control"></div>
+                                    <div class="form-group"><label>Tarih</label> <input type="text" name="date" placeholder="23-06-2014 Formatında" class="form-control"></div>
                                     <div>
-                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Ekle</strong></button>                        
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" name="gorevEkle" type="submit"><strong>Ekle</strong></button>                        
                                     </div>
                                 </form>
-                            </div>
+                            
+							
+							<?php
+									extract($_POST);
+									
+									// write data if there is no error, display message.
+									 if(isset($gorevEkle))
+										{			
+											
+											
+											$updateQuery = "INSERT INTO assignment (customer, blog, tags, url, topic, aim, date)
+													VALUES ('".$customer."', '".$blog."', '".$tags."', '".$url."', '".$topic."', '".$aim."', '".$date."')" ;
+													
+														
+											$result = mysql_query($updateQuery);
+										
+											if($result){
+												
+												echo "<h2>Mesaj:</h2>";
+												echo "Görev Başarı ile Kaydedildi<br>";
+												echo "<br>Müşteri: ".$customer."<br>"."Blog Adı/Yazarı: ".$blog."<br>";
+											}
+											else {
+												echo "<h2>Mesaj:</h2>";
+												echo "Olmadı, tekrar deneyin!";
+											}
+											 
+										 
+										}
+										
+									?>	
+							
+							
+							
+							</div>
                             
                         </div>
                     </div>
