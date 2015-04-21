@@ -6,7 +6,7 @@
 					
 			<div class="row" style="margin-bottom:10px;">			
 				<div class="col-lg-12">
-					<a href="admin-kategoriler.php" onclick="document.form(0).submit();" class="btn btn-primary ">Hepsi</a>
+					<a href="admin-kategoriler.php" onclick="document.form(0).submit();" class="btn btn-success ">Hepsi</a>
 					<a href="admin-kategori-ekle.php" onclick="submit();" href="javascript:void(0);" class="btn btn-primary ">Yeni Ekle</a>
 					<a href="admin-kategori-duzenle.php" name="duzenle" class="btn btn-primary ">Düzenle</a>
 					<a href="admin-kategori-sil.php" name="sil" class="btn btn-primary ">Sil</a>

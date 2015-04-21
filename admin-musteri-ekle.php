@@ -34,8 +34,11 @@
 									// write data if there is no error, display message.
 									 if(isset($musteriEkle))
 										{			
-											
-											
+											if($musteriIsmi=="" or $yetkiliKisi=="" or $yetkiliEposta==""){
+												echo "Lütfen tüm alanları doldurduğunuzdan emin olun.";
+												
+											}
+											else {
 											$updateQuery = "INSERT INTO customers (cust_name, responsible, responsible_email)
 													VALUES ('".$musteriIsmi."', '".$yetkiliKisi."', '".$yetkiliEposta."')" ;
 													
@@ -46,12 +49,14 @@
 												
 												echo "<h2>Mesaj:</h2>";
 												echo "Müşteri Başarı ile Kaydedildi<br>";
-												echo "<br>Müşteri: ".$musteriIsmi."<br>"."Yetkili Kişi: ".$yetkiliKisi."<br>";
+												echo "<br><strong>Müşteri:</strong> ".$musteriIsmi."<br>"."<strong>Yetkili Kişi:</strong> ".$yetkiliKisi."<br>";
 											}
 											else {
 												echo "<h2>Mesaj:</h2>";
 												echo "Olmadı, tekrar deneyin!";
 											}
+											}
+											
 											 
 										 
 										}

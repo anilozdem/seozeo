@@ -31,35 +31,35 @@
 						<div class="input-group"><input type="text" placeholder="Arama" class="input-sm form-control"> <span class="input-group-btn">
 						 <button type="button" class="btn btn-sm btn-primary"> Ara</button> </span></div>
 				</div>	
+			
+				<br><br>
+					<div class="ibox float-e-margins" class="row" style="margin-bottom:10px;">
+							<form role="form" action="admin-gorevler.php" method="post">                      						
+								<div class="form-group" id="data_1">
+									<div class="col-lg-3" class="form-group" id="data_1"> 
+										<div class="input-group date">
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="date" name="ilkTarih" placeholder="23/04/2014" class="form-control">
+										</div>
+									</div>
+								</div>
+								
+								<div class="col-lg-3" class="form-group" id="data_1">
+										
+										<div class="input-group date">
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="date" name="sonTarih" placeholder="23/06/2014" class="form-control" >
+										</div>
+								</div>
+								
+								<div class="col-lg-5">
+										<button class="btn btn-primary" name="filtrele" type="submit">Filtrele</button>   
+								</div>
+							
+					</div>
+			
+			
+				</form>
 			</div>
 			
-			<div class="ibox float-e-margins" class="row" style="margin-bottom:10px;">
-                    <form role="form" action="admin-gorevler.php" method="post">                      						
-						<div class="form-group" id="data_1">
-                            <div class="col-lg-3" class="form-group" id="data_1"> 
-                                <div class="input-group date">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="date" name="ilkTarih" placeholder="23/04/2014" class="form-control">
-                                </div>
-							</div>
-                        </div>
-						
-						<div class="col-lg-3" class="form-group" id="data_1">
-                                
-                                <div class="input-group date">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="date" name="sonTarih" placeholder="23/06/2014" class="form-control" >
-                                </div>
-						</div>
-						
-						<div class="col-lg-5">
-								<button class="btn btn-primary" name="filtrele" type="submit">Filtrele</button>   
-						</div>
-					
-			</div>
-			
-			
-			</form>
-			
-			<br><br><br><br>
 			
 			
             <table class="table table-striped table-bordered table-hover " id="editable" >
@@ -126,8 +126,8 @@
             </div>
 						<div class="btn-group">
                                 <button type="button" class="btn btn-white"><i class="fa fa-chevron-left"></i></button>
-                                <button class="btn btn-white">1</button>
-                                <button class="btn btn-white  active">2</button>
+                                <button class="btn btn-white active">1</button>
+                                <button class="btn btn-white">2</button>
                                 <button class="btn btn-white">3</button>
                                 <button class="btn btn-white">4</button>
                                 <button type="button" class="btn btn-white"><i class="fa fa-chevron-right"></i> </button>

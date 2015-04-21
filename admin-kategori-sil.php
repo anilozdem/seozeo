@@ -9,7 +9,7 @@
 					<a href="admin-kategoriler.php" onclick="document.form(0).submit();" class="btn btn-primary ">Hepsi</a>
 					<a href="admin-kategori-ekle.php" onclick="submit();" href="javascript:void(0);" class="btn btn-primary ">Yeni Ekle</a>
 					<a href="admin-kategori-duzenle.php" name="duzenle" class="btn btn-primary ">Düzenle</a>
-					<a href="admin-kategori-sil.php" name="sil" class="btn btn-primary ">Sil</a>
+					<a href="admin-kategori-sil.php" name="sil" class="btn btn-danger ">Sil</a>
 				</div>
 			</div>
 		

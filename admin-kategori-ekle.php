@@ -7,7 +7,7 @@
 		<div class="row" style="margin-bottom:10px;">			
 				<div class="col-lg-12">
 					<a href="admin-kategoriler.php" onclick="document.form(0).submit();" class="btn btn-primary ">Hepsi</a>
-					<a href="admin-kategori-ekle.php" onclick="submit();" href="javascript:void(0);" class="btn btn-primary ">Yeni Ekle</a>
+					<a href="admin-kategori-ekle.php" onclick="submit();" href="javascript:void(0);" class="btn btn-success ">Yeni Ekle</a>
 					<a href="admin-kategori-duzenle.php" name="duzenle" class="btn btn-primary ">Düzenle</a>
 					<a href="admin-kategori-sil.php" name="sil" class="btn btn-primary ">Sil</a>
 				</div>
@@ -28,38 +28,58 @@
                                         <button class="btn btn-sm btn-primary pull-right m-t-n-xs" name="kategoriEkle" type="submit"><strong>Ekle</strong></button>                        
                                     </div>
                                 </form>
-                            </div>
                             
-                        </div>
-                    </div>
-                </div>
-            
-			
-			<?php
+							
+							<?php
 		extract($_POST);
 	
 		// write data if there is no error, display message.
 		 if(isset($kategoriEkle))
 			{	
 		
-				$updateQuery = "INSERT INTO tags (tag)
-						VALUES ('$yenikategori')";
-						
-							
-				$result = mysql_query($updateQuery);
-			
-				if($result){
-					echo "Yeni Kategori Başarılı bir şekilde eklendi.<br>";
-					echo "<br>Yeni Eklenen Kategori: ".$yenikategori."<br><br>";
+				$getBlogs =  mysql_query("SELECT tag FROM tags") or die(mysql_error());
+				
+				while($row= mysql_fetch_array($getBlogs))
+				{		
+				if($yenikategori=$row['tag']){
+					echo "<h3>Hata:</h3>";
+					echo "O kategori Zaten var.<br>";
+					break;
 				}
-				else {
-					echo "Kategori eklenirken bir hata meydana geldi!";
+					
+					
+					else{
+						$updateQuery = "INSERT INTO tags (tag)
+							VALUES ('$yenikategori')";
+								
+						$result = mysql_query($updateQuery);
+					
+						if($result){
+							echo "Yeni Kategori Başarılı bir şekilde eklendi.<br>";
+							echo "<br>Yeni Eklenen Kategori: ".$yenikategori."<br><br>";
+						}
+						else {
+							echo "Kategori eklenirken bir hata meydana geldi!";
+						}
+					
+				}
+		
 				}
 				 
 			 
 			}
 			
 		?>	
+							
+							
+							</div>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+			
+			
 			</div>
             </div>
 			
