@@ -1,23 +1,28 @@
 <?PHP include 'header.php'; ?>
 <?php require('config.php'); ?>
 
-</br></br></br></br>
 <div class="wrapper wrapper-content animated fadeInRight">		
-			
+			<div class="col-lg-12">
+				<div>
+                     <div class="alert alert-success"><a class="alert-link" href="admin-blog-kabul.php">
+                          1 Yeni Blog Kaydolmuştur</a>.
+                     </div>
+				</div>
+			</div>
 					
 			<div class="row" style="margin-bottom:10px;">			
 				<div class="col-lg-12">
 					<a href="admin-bloglar.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">Hepsi</a>
 					<a href="admin-bloglar-uygun-olanlar.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">Uygun Olanlar</a>
 					<a href="admin-bloglar-dondurulmus-hesaplar.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">Dondurulmuş Hesaplar</a>
-					<a href="admin-bloglar-silinenler.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">Silinenler</a>
+					<a href="admin-bloglar-silinenler.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-success ">Silinenler</a>
 				</div>
 			</div>
 			
 			<div class="row" style="margin-bottom:10px;">
 				<div class="col-lg-6">
-						<div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-						 <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+						<div class="input-group"><input type="text" placeholder="Arama" class="input-sm form-control"> <span class="input-group-btn">
+						 <button type="button" class="btn btn-sm btn-primary"> Ara </button> </span></div>
 				</div>	
 			</div>
 			
@@ -54,7 +59,7 @@
 						<thead>
 						<tr>
 							<th></th>
-							<th>Blog Adı</th>
+							<th>Blog Adı/Blog Sahibi</th>
 							<th>E-mail</th>
 							<th>P*T Değeri</th>
 							<th>Fiyat</th>
@@ -63,24 +68,26 @@
 						</thead>
 						<tbody>
 						<tr class="gradeX">
-								<?php
-									$getBlogs =  mysql_query("SELECT users.name, users.domain, blogs.date, blogs.tags, url, status FROM blogs,users where user_id=id and user_id =1 and status='Silindi'") or die(mysql_error());
-								
-								
-													while($row= mysql_fetch_array($getBlogs))
-													{				echo"<tr>";
-																	
-																	echo"<td>".$row['name'] . " </td>";
-																	echo"<td>".$row['domain'] . " </td>";
-																	echo"<td>".$row['date'] . " </td>";
-																	echo"<td>".$row['tags'] . " </td>";
-																	echo"<td>".$row['url'] . " </td>";
-																	echo"<td>".$row['status'] . " </td></tr>";
-																	
-													}
+						
+						<?php
+						$getBlogs =  mysql_query("SELECT name,email,pt,cost,info FROM blogs where info='Silinenler'") or die(mysql_error());
+				
+				
+									while($row= mysql_fetch_array($getBlogs))
+									{				echo"<tr>";
+													echo "<td><input type=\"checkbox\" class=\"i-checks\" name=\"input[]\"></td>";
+													echo"<td>".$row['name'] . " </td>";
+													echo"<td>".$row['email'] . " </td>";
+													echo"<td>".$row['pt'] . " </td>";
+													echo"<td>".$row['cost'] . " </td>";
+													echo"<td>".$row['info'] . " </td></tr>";
 													
-													echo "</table>";
-										?>
+									}
+									
+									echo "</table>";
+						?>
+						
+						
 							
 						</tbody>           
 						</table>
@@ -97,7 +104,7 @@
                                 <button class="btn btn-white">4</button>
                                 <button type="button" class="btn btn-white"><i class="fa fa-chevron-right"></i> </button>
                         </div>
-            <script>
+    <script>
         $(document).ready(function() {
             $('.dataTables-example').dataTable({
                 responsive: true,
@@ -106,8 +113,20 @@
                     "sSwfPath": "js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
                 }
             });
-			});
-			</script>
+			
+			
+			
+			$('#data_1 .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            });
+			
+		});	
+			
+	</script>
 
 
 <?PHP include 'footer.php'; ?>

@@ -12,7 +12,7 @@
                             <div class="col-sm-12">
                                 <div>
 									<a href="admin-gorevler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Hepsi</a>
-									<a href="admin-gorev-ekle.php" onclick="fnClickAddRow();" class="btn btn-primary ">Ekle</a>
+									<a href="admin-gorev-ekle.php" onclick="fnClickAddRow();" class="btn btn-success ">Ekle</a>
 									<a href="admin-gorev-sil.php" onclick="fnClickAddRow();" class="btn btn-primary ">Sil</a>
 									<a href="admin-gorev-silinenler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Silinenler</a>
 									<a href="admin-gorev-arsivle.php" onclick="fnClickAddRow();" class="btn btn-primary ">Arşivle</a>
@@ -64,7 +64,7 @@
 									<div class="form-group"><label>Anahtar Kelimeye Eklenecek URL</label> <input name="url" type="text" placeholder="URL" class="form-control"></div>
                                     <div class="form-group"><label>Yazınin Konusu</label> <input type="text" name="topic" placeholder="Yazının Konusu" class="form-control"></div>
                                     <div class="form-group"><label>Yazınin Yazılma Amacı</label> <input name="aim" type="text" placeholder="Amacı" class="form-control"></div>
-                                    <div class="form-group"><label>Tarih</label> <input type="text" name="date" placeholder="23-06-2014 Formatında" class="form-control"></div>
+                                    <div class="form-group"><label>Tarih</label> <input type="date" name="date" placeholder="23-06-2014 Formatında" class="form-control"></div>
                                     <div>
                                         <button class="btn btn-sm btn-primary pull-right m-t-n-xs" name="gorevEkle" type="submit"><strong>Ekle</strong></button>                        
                                     </div>

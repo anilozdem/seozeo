@@ -7,9 +7,10 @@
 					
 			<div class="row" style="margin-bottom:10px;">			
 				<div class="col-lg-12">
-					<a href="admin-musteri-ekle.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">Müşteri Ekle</a>
-					<a href="" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">Müşteriyi Arşivle</a>
-					<a href="admin-musteriler-arsivlenmis.php" class="btn btn-primary ">Arşivlenen Müşteriler</a>				
+									<a href="admin-musteriler.php" class="btn btn-primary ">Tümü</a>
+									<a href="admin-musteri-ekle.php" class="btn btn-primary ">Müşteri Ekle</a>
+									<a href="admin-musteri-arsivle.php" class="btn btn-success ">Müşteriyi Arşivle</a>
+									<a href="admin-musteriler-arsivlenmis.php" class="btn btn-primary ">Arşivlenen Müşteriler</a>				
 				</div>
 			</div>
 			

@@ -1,4 +1,5 @@
 <?PHP include 'header.php'; ?>
+<?php require('config.php'); ?>
 
 <div class="wrapper wrapper-content animated fadeInRight">		
 			<div class="col-lg-12">
@@ -11,7 +12,7 @@
 					
 			<div class="row" style="margin-bottom:10px;">			
 				<div class="col-lg-12">
-					<a href="admin-bloglar.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">Hepsi</a>
+					<a href="admin-bloglar.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-success ">Hepsi</a>
 					<a href="admin-bloglar-uygun-olanlar.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">Uygun Olanlar</a>
 					<a href="admin-bloglar-dondurulmus-hesaplar.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">Dondurulmuş Hesaplar</a>
 					<a href="admin-bloglar-silinenler.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">Silinenler</a>
@@ -20,8 +21,8 @@
 			
 			<div class="row" style="margin-bottom:10px;">
 				<div class="col-lg-6">
-						<div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-						 <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+						<div class="input-group"><input type="text" placeholder="Arama" class="input-sm form-control"> <span class="input-group-btn">
+						 <button type="button" class="btn btn-sm btn-primary"> Ara </button> </span></div>
 				</div>	
 			</div>
 			
@@ -58,7 +59,7 @@
 						<thead>
 						<tr>
 							<th></th>
-							<th>Blog Adı</th>
+							<th>Blog Adı/Blog Sahibi</th>
 							<th>E-mail</th>
 							<th>P*T Değeri</th>
 							<th>Fiyat</th>
@@ -67,46 +68,27 @@
 						</thead>
 						<tbody>
 						<tr class="gradeX">
-							<td><input type="checkbox" class="i-checks" name="input[]"></td>
-							<td><a href="admin-blog-duzenleme.php">neclasolen.com</td>
-							<td>neclasolen@gmail.com</td>
-							<td>6</td>
-							<td>50</td>
-							<td></td>
-						</tr>
-						<tr class="gradeC">
-							<td><input type="checkbox" class="i-checks" name="input[]"></td>
-							<td>aorhan.com</td>
-							<td>muhorhan@gmail.com</td>
-							<td>20</td>
-							<td>70</td>
-							<td></td>
-						</tr>
 						
-						<tr class="gradeA">
-							<td><input type="checkbox" class="i-checks" name="input[]"></td>
-							<td>aorhan.com</td>
-							<td>muhorhan@gmail.com</td>
-							<td>20</td>
-							<td>70</td>
-							<td></td>
-						</tr>
-						<tr class="gradeA">
-							<td><input type="checkbox" class="i-checks" name="input[]"></td>
-							<td>aorhan.com</td>
-							<td>muhorhan@gmail.com</td>
-							<td>20</td>
-							<td>70</td>
-							<td></td>
-						</tr>
-						<tr class="gradeA">
-							<td><input type="checkbox" class="i-checks" name="input[]"></td>
-							<td>aorhan.com</td>
-							<td>muhorhan@gmail.com</td>
-							<td>20</td>
-							<td>70</td>
-							<td></td>
-						</tr>
+						<?php
+						$getBlogs =  mysql_query("SELECT name,email,pt,cost,info FROM blogs where cost>2000") or die(mysql_error());
+				
+				
+									while($row= mysql_fetch_array($getBlogs))
+									{				echo"<tr>";
+													echo "<td><input type=\"checkbox\" class=\"i-checks\" name=\"input[]\"></td>";
+													echo"<td>".$row['name'] . " </td>";
+													echo"<td>".$row['email'] . " </td>";
+													echo"<td>".$row['pt'] . " </td>";
+													echo"<td>".$row['cost'] . " </td>";
+													echo"<td>".$row['info'] . " </td></tr>";
+													
+									}
+									
+									echo "</table>";
+						?>
+						
+						
+							
 						</tbody>           
 						</table>
 					</div>

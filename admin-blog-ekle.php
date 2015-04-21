@@ -1,3 +1,4 @@
+<?php require('config.php'); ?>
 <?PHP include 'header.php'; ?>
 
 		</br></br></br></br>
@@ -9,25 +10,65 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-sm-6">                               
-                                <form role="form">
-                                    <div class="form-group"><label>Kullanici Adi</label> <input type="text" placeholder="Enter email" class="form-control"></div>
-                                    <div class="form-group"><label>Isim Soyisim</label> <input type="text" placeholder="Password" class="form-control"></div>                                    
-                                </form>
+                                <form role="form" action="admin-blog-ekle.php" method="post">
+                                    <div class="form-group"><label>Alan Adı</label> <input type="text" name="alanAdi" placeholder="Alan Adı" class="form-control"></div>
+                                    <div class="form-group"><label>Blog Adı</label> <input type="text" name="blogAdi" placeholder="Blog Adını/Blog Sahibi" class="form-control"></div>  
+									<div class="form-group"><label>İsim Soyisim</label> <input type="text" name="isimSoyisim" placeholder="İsim Soyisim" class="form-control"></div>
+									
+                                
                             </div>
                             <div class="col-sm-6">
-								<form role="form">
-                                    <div class="form-group"><label>Mail Adresi</label> <input type="email" placeholder="Enter email" class="form-control"></div>
-                                    <div class="form-group"><label>Telefon Numarasi</label> <input type="text" placeholder="Password" class="form-control"></div>                                   
-                                    <div class="form-group"><label>Ucret</label> <input type="text" placeholder="Password" class="form-control"></div>                                   
-                                </form>
+								
+                                    <div class="form-group"><label>E-posta Adresi</label> <input type="text" name="eposta" placeholder="E-posta" class="form-control"></div>
+                                    <div class="form-group"><label>Telefon Numarası</label> <input type="text" name="telefon" placeholder="Telefon" class="form-control"></div>                                   
+                                    <div class="form-group"><label>Ücret</label> <input type="text" name="ucret" placeholder="Ücret" class="form-control"></div>                                   
+									
                             </div>
-                        </div>
-						<p>Yazı tarafınızdan mı, yoksa SEOZEO tarafından mı temin edilecek?</p>
+							
+									<div class="col-sm-12">
+									<label>Yazı tarafınızdan mı, yoksa SEOZEO tarafından mı temin edilecek?  </label><br>
+									<label> <input type="radio" name="content_provider" value="1" class="i-checks" checked> Kendim Yazacağım</label>
+                                    <label> <input type="radio" name="content_provider" value="2" class="i-checks"> SEOZEO tarafından gönderilsin</label>
+                                       
+									<button class="btn btn-sm btn-primary pull-right m-t-n-xs" name="blogEkle" type="submit"><strong>Ekle</strong></button>
+									</div>
+							
+							</form>
+                        
+						<?php
+									extract($_POST);
+									
+									// write data if there is no error, display message.
+									 if(isset($blogEkle))
+										{			
+											
+											
+											$updateQuery = "INSERT INTO blogs (domain, name, userName, email, phone, cost, contentProvider)
+													VALUES ('".$alanAdi."', '".$blogAdi."', '".$isimSoyisim."', '".$eposta."', '".$telefon."', '".$ucret."', '".$content_provider."')" ;
+													
+														
+											$result = mysql_query($updateQuery);
+										
+											if($result){
+												
+												echo "<h2>Mesaj:</h2>";
+												echo "Blog Başarı ile Kaydedildi<br>";
+												echo "<br>Müşteri: ".$alanAdi."<br>"."Blog Adı/Yazarı: ".$isimSoyisim."<br>";
+											}
+											else {
+												echo "<h2>Mesaj:</h2>";
+												echo "Olmadı, tekrar deneyin!";
+											}
+											 
+										 
+										}
+										
+									?>	
 						
-									<div>
-                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Log in</strong></button>
-                                        <label> <input type="checkbox" class="i-checks"> Remember me </label>
-                                    </div>
+						</div>
+						<p></p>
+						
+									
                     </div>
                 </div>
             </div>

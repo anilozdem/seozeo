@@ -7,9 +7,10 @@
 					
 			<div class="row" style="margin-bottom:10px;">			
 				<div class="col-lg-12">
-					<a href="admin-musteri-ekle.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">Müþteri Ekle</a>
-					<a href="" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">Müþteriyi Arþivle</a>
-					<a href="admin-musteriler-arsivlenmis.php" class="btn btn-primary ">Arþivlenen Müþteriler</a>				
+					<a href="admin-musteriler.php" class="btn btn-primary ">TÃ¼mÃ¼</a>
+					<a href="admin-musteri-ekle.php" class="btn btn-primary ">MÃ¼ÅŸteri Ekle</a>
+					<a href="admin-musteri-arsivle.php" class="btn btn-primary ">MÃ¼ÅŸteriyi ArÅŸivle</a>
+					<a href="admin-musteriler-arsivlenmis.php" class="btn btn-success ">ArÅŸivlenen MÃ¼ÅŸteriler</a>				
 				</div>
 			</div>
 			
@@ -30,9 +31,9 @@
 						<thead>
 						<tr>
 							
-							<th>Müþteri ID</th>
-							<th>Müþteri Ýsmi</th>
-							<th>Yetkili Kiþi</th>
+							<th>MÃ¼ÅŸteri ID</th>
+							<th>MÃ¼ÅŸteri Ä°smi</th>
+							<th>Yetkili KiÅŸi</th>
 							<th>Yetkili E-posta</th>
 							
 						</tr>
@@ -41,7 +42,7 @@
 						<tr class="gradeX">
 						
 						<?php
-						$getBlogs =  mysql_query("SELECT id,cust_name,responsible,responsible_email,archive FROM customers where archive='Yes' ") or die(mysql_error());
+						$getBlogs =  mysql_query("SELECT id,cust_name,responsible,responsible_email FROM customers where archive='Yes'") or die(mysql_error());
 				
 				
 									while($row= mysql_fetch_array($getBlogs))

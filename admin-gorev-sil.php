@@ -8,7 +8,7 @@
 				<div class="col-lg-12">
 					<a href="admin-gorevler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Hepsi</a>
 					<a href="admin-gorev-ekle.php" onclick="fnClickAddRow();" class="btn btn-primary ">Ekle</a>
-					<a href="admin-gorev-sil.php" onclick="fnClickAddRow();" class="btn btn-primary ">Sil</a>
+					<a href="admin-gorev-sil.php" onclick="fnClickAddRow();" class="btn btn-danger ">Sil</a>
 					<a href="admin-gorev-silinenler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Silinenler</a>
 					<a href="admin-gorev-arsivle.php" onclick="fnClickAddRow();" class="btn btn-primary ">Arşivle</a>
 					<a href="admin-gorev-arsivlenenler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Arşivlenler</a>
@@ -28,9 +28,9 @@
                                    
 									
 								<?php 
-								$checkData =  mysql_query("SELECT id FROM assignment  ") or die(mysql_error());	
+								$checkData =  mysql_query("SELECT id FROM assignment where status!='Silindi'") or die(mysql_error());	
 											
-								echo   '<form role="form" action="admin-kategori-sil.php" method="post">
+								echo   '<form role="form" action="admin-gorev-sil.php" method="post">
 										<div class="form-group"><label>Gorevler</label> 
 										<select class="form-control" name="gorevler">';
 										while($row= mysql_fetch_array($checkData))
@@ -40,7 +40,7 @@
 								}
 								echo "</select></div>";
 								
-								echo "<div><button type=\"submit\" name=\"gorevSil\" class=\"btn btn-sm btn-primary pull-right m-t-n-xs\">Sil!</button></div>";
+								echo "<div><button type=\"submit\" name=\"gorevSil\" class=\"btn btn-sm btn-danger pull-right m-t-n-xs\">Sil!</button></div>";
 								echo "</form>";
 									
 									

@@ -10,7 +10,7 @@
 					<a href="admin-gorev-ekle.php" onclick="fnClickAddRow();" class="btn btn-primary ">Ekle</a>
 					<a href="admin-gorev-sil.php" onclick="fnClickAddRow();" class="btn btn-primary ">Sil</a>
 					<a href="admin-gorev-silinenler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Silinenler</a>
-					<a href="admin-gorev-arsivle.php" onclick="fnClickAddRow();" class="btn btn-primary ">Arşivle</a>
+					<a href="admin-gorev-arsivle.php" onclick="fnClickAddRow();" class="btn btn-success ">Arşivle</a>
 					<a href="admin-gorev-arsivlenenler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Arşivlenler</a>
 				</div>
 			</div>
@@ -28,7 +28,7 @@
                                    
 									
 								<?php 
-								$checkData =  mysql_query("SELECT id FROM assignment  ") or die(mysql_error());	
+								$checkData =  mysql_query("SELECT id FROM assignment where status!='Arşivlendi' ") or die(mysql_error());	
 											
 								echo   '<form role="form" action="admin-kategori-sil.php" method="post">
 										<div class="form-group"><label>Görevler</label> 

@@ -18,7 +18,7 @@
             
             <div class="ibox-content">
             <div class="">
-			<a href="admin-gorevler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Hepsi</a>
+			<a href="admin-gorevler.php" onclick="fnClickAddRow();" class="btn btn-success ">Hepsi</a>
             <a href="admin-gorev-ekle.php" onclick="fnClickAddRow();" class="btn btn-primary ">Ekle</a>
 			<a href="admin-gorev-sil.php" onclick="fnClickAddRow();" class="btn btn-primary ">Sil</a>
 			<a href="admin-gorev-silinenler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Silinenler</a>
@@ -28,10 +28,40 @@
 			</br>
 			<div class="row" style="margin-bottom:10px;">
 				<div class="col-lg-6">
-						<div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-						 <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+						<div class="input-group"><input type="text" placeholder="Arama" class="input-sm form-control"> <span class="input-group-btn">
+						 <button type="button" class="btn btn-sm btn-primary"> Ara</button> </span></div>
 				</div>	
 			</div>
+			
+			<div class="ibox float-e-margins" class="row" style="margin-bottom:10px;">
+                    <form role="form" action="admin-gorevler.php" method="post">                      						
+						<div class="form-group" id="data_1">
+                            <div class="col-lg-3" class="form-group" id="data_1"> 
+                                <div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="date" name="ilkTarih" placeholder="23/04/2014" class="form-control">
+                                </div>
+							</div>
+                        </div>
+						
+						<div class="col-lg-3" class="form-group" id="data_1">
+                                
+                                <div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="date" name="sonTarih" placeholder="23/06/2014" class="form-control" >
+                                </div>
+						</div>
+						
+						<div class="col-lg-5">
+								<button class="btn btn-primary" name="filtrele" type="submit">Filtrele</button>   
+						</div>
+					
+			</div>
+			
+			
+			</form>
+			
+			<br><br><br><br>
+			
+			
             <table class="table table-striped table-bordered table-hover " id="editable" >
             <thead>
             <tr>
@@ -48,7 +78,27 @@
 			<tbody>
             <tr class="gradeX">
 			<?php
-			$getBlogs =  mysql_query("SELECT customer, blog, tags, url, topic, aim, date, status FROM assignment") or die(mysql_error());
+							extract($_POST);
+							
+							if(isset($filtrele))
+										{
+										$getBlogs =  mysql_query("SELECT customer, blog, tags, url, topic, aim, date, status FROM assignment where date between '$ilkTarih' and '$sonTarih' ORDER by customer DESC ") or die(mysql_error());
+							
+										while($row= mysql_fetch_array($getBlogs))
+										{	echo"<tr>";
+											echo"<td>".$row['customer'] . " </td>";
+										echo"<td>".$row['blog'] . " </td>";
+										echo"<td>".$row['date'] . " </td>";
+										echo"<td>".$row['tags'] . " </td>";
+										echo"<td>".$row['url'] . " </td>";
+										echo"<td>".$row['status'] . " </td></tr>";
+										}
+												
+												echo "</table>";
+										}
+										
+							else{
+								$getBlogs =  mysql_query("SELECT customer, blog, tags, url, topic, aim, date, status FROM assignment") or die(mysql_error());
 	
 	
 						while($row= mysql_fetch_array($getBlogs))
@@ -64,10 +114,10 @@
 						}
 						
 						echo "</table>";
-			?>
-          
-           
-              
+								
+							}			
+							
+						?> 
  
             </tbody>
             

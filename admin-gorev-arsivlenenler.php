@@ -23,7 +23,7 @@
 			<a href="admin-gorev-sil.php" onclick="fnClickAddRow();" class="btn btn-primary ">Sil</a>
 			<a href="admin-gorev-silinenler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Silinenler</a>
 			<a href="admin-gorev-arsivle.php" onclick="fnClickAddRow();" class="btn btn-primary ">Arşivle</a>
-			<a href="admin-gorev-arsivlenenler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Arşivlenler</a>
+			<a href="admin-gorev-arsivlenenler.php" onclick="fnClickAddRow();" class="btn btn-success ">Arşivlenler</a>
             </div>
 			</br>
 			<div class="row" style="margin-bottom:10px;">
@@ -48,7 +48,7 @@
 			<tbody>
             <tr class="gradeX">
 			<?php
-			$getBlogs =  mysql_query("SELECT customer, blog, tags, url, topic, aim, date, status FROM assignment where status='Arşivlendi'") or die(mysql_error());
+			$getBlogs =  mysql_query("SELECT customer, blog, tags, url, topic, aim, date, status FROM assignment where status ='Arşivlendi'") or die(mysql_error());
 	
 	
 						while($row= mysql_fetch_array($getBlogs))

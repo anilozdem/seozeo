@@ -7,6 +7,7 @@
 					
 			<div class="row" style="margin-bottom:10px;">			
 				<div class="col-lg-12">
+					<a href="admin-musteriler.php" class="btn btn-success ">Tümü</a>
 					<a href="admin-musteri-ekle.php" class="btn btn-primary ">Müşteri Ekle</a>
 					<a href="admin-musteri-arsivle.php" class="btn btn-primary ">Müşteriyi Arşivle</a>
 					<a href="admin-musteriler-arsivlenmis.php" class="btn btn-primary ">Arşivlenen Müşteriler</a>				
