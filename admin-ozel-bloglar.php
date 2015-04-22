@@ -70,7 +70,7 @@
 						<tr class="gradeX">
 						
 						<?php
-						$getBlogs =  mysql_query("SELECT name,email,pt,cost,info FROM blogs where cost>2000") or die(mysql_error());
+						$getBlogs =  mysql_query("SELECT name,email,pt,cost,info FROM blogs where cost>100") or die(mysql_error());
 				
 				
 									while($row= mysql_fetch_array($getBlogs))

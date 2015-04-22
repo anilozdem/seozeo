@@ -22,7 +22,22 @@
 								 <div class="form-group"><label>Müşteri İsmi</label> <input type="text" name="musteriIsmi" placeholder="Lütfen müşteri ismini yazınız " class="form-control"></div>
 									<div class="form-group"><label>Yetkili Kişi</label> <input type="text" name="yetkiliKisi" placeholder="Yetkili Kişi" class="form-control"></div>
                                     <div class="form-group"><label>Yetkili E-posta</label> <input type="mail" name="yetkiliEposta" placeholder="E-posta Adresi" class="form-control"></div>
-                                   <div>
+                                   <?php 
+									$checkData =  mysql_query("SELECT tag FROM tags") or die(mysql_error());	
+												
+									echo   '<div class="form-group"><label>Kategori</label> 
+											<select class="form-control" name="kategori" MULTIPLE SIZE=5>';
+											while($row= mysql_fetch_array($checkData))
+									{
+											echo "<option class=\"form-control\" value=\"$row[tag]\">$row[tag]</option>";
+											
+									}
+									echo "</select></div>";
+									
+									
+									?>
+								   
+								   <div>
                                         <button class="btn btn-sm btn-primary pull-right m-t-n-xs" name="musteriEkle" type="submit"><strong>Ekle</strong></button>                        
                                     </div>
                                 </form>
@@ -39,8 +54,8 @@
 												
 											}
 											else {
-											$updateQuery = "INSERT INTO customers (cust_name, responsible, responsible_email)
-													VALUES ('".$musteriIsmi."', '".$yetkiliKisi."', '".$yetkiliEposta."')" ;
+											$updateQuery = "INSERT INTO customers (cust_name, responsible, responsible_email, category)
+													VALUES ('".$musteriIsmi."', '".$yetkiliKisi."', '".$yetkiliEposta."', '".$kategori."')" ;
 													
 														
 											$result = mysql_query($updateQuery);

@@ -28,8 +28,8 @@
                                 <div class="input-group date">
                                     <span class="input-group-addon"><i class="fa fa-desktop"></i></span>
 									<div class="form-group"> 
-											<select class="form-control" name="blog">
-												<option class="form-control" value="yayinlanan" disabled selected>Blog Adı/Yazarı </option>
+											<select class="form-control" name="blogAdi">
+												<option class="form-control" value="blogtitle" selected>Blog Adı/Yazarı </option>
 												<?php 
 												$checkData =  mysql_query("SELECT name FROM blogs") or die(mysql_error());	
 
@@ -52,11 +52,11 @@
                             <div class="col-lg-3" class="form-group" id="data_1"> 
                                 <div class="input-group date">
                                     <span class="input-group-addon"><i class="fa fa-try"></i></span><div class="form-group" > 
-											<select class="form-control" name="blog">
-											<option class="form-control" value="yayinlanan" disabled>Durum </option>
-											<option class="form-control" value="odendi">Ödendi </option>
-											<option class="form-control" value="bekliyor">Ödeme Bekliyor </option>
-											<option class="form-control" value="odenmedi">Ödenmedi </option>
+											<select class="form-control" name="durum">
+											<option class="form-control" value="bos" selected>Durum </option>
+											<option class="form-control" value="Ödendi">Ödendi </option>
+											<option class="form-control" value="Bekliyor">Ödeme Bekliyor </option>
+											<option class="form-control" value="Ödenmedi">Ödenmedi </option>
 						</select></div>
                                 </div>
 							</div>
@@ -66,7 +66,7 @@
 						<div class="form-group" id="data_1">
                             <div class="col-lg-2" class="form-group" id="data_1"> 
                                 <div class="input-group date">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="date" name="ilkTarih" placeholder="23/04/2014" class="form-control">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="date" name="ilkTarih" value="bos" placeholder="23/04/2014" class="form-control">
                                 </div>
 							</div>
                         </div>
@@ -74,7 +74,7 @@
 						<div class="col-lg-2" class="form-group" id="data_1">
                                 
                                 <div class="input-group date">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="date" name="sonTarih" placeholder="23/06/2014" class="form-control" >
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="date" name="sonTarih" value="bos" placeholder="23/06/2014" class="form-control" >
                                 </div>
 						</div>
 						
@@ -108,34 +108,100 @@
 							
 							if(isset($filtrele))
 										{
-										$getBlogs =  mysql_query("SELECT customer, blog, tags, url, topic, aim, date, status FROM assignment where date between '$ilkTarih' and '$sonTarih' ORDER by customer DESC ") or die(mysql_error());
-							
-										while($row= mysql_fetch_array($getBlogs))
-										{	echo"<tr>";
-											echo"<td>".$row['blog'] . " </td>";
-											echo"<td>".$row['url'] . " </td>";
-											echo"<td>".$row['status'] . " </td></tr>";
+											//hiçbir seçim yapmadan filtreleme								
+										if ($blogAdi=="blogtitle" and $durum=="bos" and $ilkTarih=="" and $sonTarih==""){
+											echo "Lütfen Arama Bilgilerinizi Kontrol Edin!";
+											
 										}
+										 //blog adına göre
+										else if($blogAdi!=="blogtitle" and $durum=="bos" and $ilkTarih=="" and $sonTarih==""){
 												
-												echo "</table>";
+												$getBlogs =  mysql_query("SELECT customer, blog, tags, url, topic, aim, date, status FROM assignment where blog='$blogAdi'") or die(mysql_error());
+							
+												while($row= mysql_fetch_array($getBlogs))
+												{	echo"<tr>";
+													echo"<td>".$row['blog'] . " </td>";
+													echo"<td>".$row['url'] . " </td>";
+													echo"<td>".$row['status'] . " </td></tr>";
+												}
+													echo "</table>";
+											
+										}
+										//durumuna göre
+										else if($blogAdi=="blogtitle" and $durum!=="bos" and $ilkTarih=="" and $sonTarih==""){
+												
+												$getBlogs =  mysql_query("SELECT customer, blog, tags, url, topic, aim, date, status FROM assignment where status='$durum'") or die(mysql_error());
+							
+												while($row= mysql_fetch_array($getBlogs))
+												{	echo"<tr>";
+													echo"<td>".$row['blog'] . " </td>";
+													echo"<td>".$row['url'] . " </td>";
+													echo"<td>".$row['status'] . " </td></tr>";
+												}
+													echo "</table>";
+											
+										}
+										//blog adı ve durumuna göre
+										else if($blogAdi!=="blogtitle" and $durum!=="bos" and $ilkTarih=="" and $sonTarih==""){
+												
+												$getBlogs =  mysql_query("SELECT customer, blog, tags, url, topic, aim, date, status FROM assignment where blog='$blogAdi' and status='$durum'") or die(mysql_error());
+							
+												while($row= mysql_fetch_array($getBlogs))
+												{	echo"<tr>";
+													echo"<td>".$row['blog'] . " </td>";
+													echo"<td>".$row['url'] . " </td>";
+													echo"<td>".$row['status'] . " </td></tr>";
+												}
+													echo "</table>";
+											
+										}
+										//sadece tarih 
+										else if($blogAdi=="blogtitle" and $durum=="bos" and $ilkTarih!=="" and $sonTarih!==""){
+												
+												$getBlogs =  mysql_query("SELECT customer, blog, tags, url, topic, aim, date, status FROM assignment where date between '$ilkTarih' and '$sonTarih' ORDER by customer DESC") or die(mysql_error());
+							
+												while($row= mysql_fetch_array($getBlogs))
+												{	echo"<tr>";
+													echo"<td>".$row['blog'] . " </td>";
+													echo"<td>".$row['url'] . " </td>";
+													echo"<td>".$row['status'] . " </td></tr>";
+												}
+													echo "</table>";
+											
 										}
 										
-							else{
+										//hepsi seçiliyken
+										else {
+												
+												$getBlogs =  mysql_query("SELECT customer, blog, tags, url, topic, aim, date, status FROM assignment where blog='$blogAdi' and status='$durum' and date between '$ilkTarih' and '$sonTarih' ORDER by customer DESC") or die(mysql_error());
+							
+												while($row= mysql_fetch_array($getBlogs))
+												{	echo"<tr>";
+													echo"<td>".$row['blog'] . " </td>";
+													echo"<td>".$row['url'] . " </td>";
+													echo"<td>".$row['status'] . " </td></tr>";
+												}
+													echo "</table>";
+											
+										}
+										}
+										
+										else{
 								$getBlogs =  mysql_query("SELECT customer, blog, tags, url, topic, aim, date, status FROM assignment") or die(mysql_error());
 	
 	
-						while($row= mysql_fetch_array($getBlogs))
-						{				echo"<tr>";
-										
-										echo"<td>".$row['blog'] . " </td>";
-										echo"<td>".$row['url'] . " </td>";
-										echo"<td>".$row['status'] . " </td></tr>";
-										
-						}
-						
-						echo "</table>";
-								
-							}			
+									while($row= mysql_fetch_array($getBlogs))
+									{				echo"<tr>";
+													
+													echo"<td>".$row['blog'] . " </td>";
+													echo"<td>".$row['url'] . " </td>";
+													echo"<td>".$row['status'] . " </td></tr>";
+													
+									}
+									
+									echo "</table>";
+											
+										}			
 							
 						?> 
  

@@ -28,14 +28,14 @@
                                    
 									
 								<?php 
-								$checkData =  mysql_query("SELECT id FROM assignment where status!='Silindi'") or die(mysql_error());	
+								$checkData =  mysql_query("SELECT * FROM assignment where status!='Silindi'") or die(mysql_error());	
 											
 								echo   '<form role="form" action="admin-gorev-sil.php" method="post">
-										<div class="form-group"><label>Gorevler</label> 
+										<div class="form-group"><label>Görevler</label> 
 										<select class="form-control" name="gorevler">';
 										while($row= mysql_fetch_array($checkData))
 								{
-										echo "<option class=\"form-control\" value=\"$row[id]\">$row[id]</option>";
+										echo "<option class=\"form-control\" value=\"$row[id]\"><b>$row[customer] </b>isimli müşteri için <b>$row[blog]</b> isimli Blogerın görevi. </option>";
 										
 								}
 								echo "</select></div>";
