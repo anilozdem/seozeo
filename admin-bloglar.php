@@ -34,7 +34,7 @@
 						<thead>
 						<tr>
 							<th></th>
-							<th>Blog Adı/Blog Sahibi</th>
+							<th>Blog Adı/Domain</th>
 							<th>E-mail</th>
 							<th>P*T Değeri</th>
 							<th>Fiyat</th>
@@ -45,13 +45,13 @@
 						<tr class="gradeX">
 						
 						<?php
-						$getBlogs =  mysql_query("SELECT name,email,pt,cost,info FROM blogs") or die(mysql_error());
+						$getBlogs =  mysql_query("SELECT name,email,pt,cost,info,domain FROM blogs") or die(mysql_error());
 				
 				
 									while($row= mysql_fetch_array($getBlogs))
 									{				echo"<tr>";
 													echo "<td><input type=\"checkbox\" class=\"i-checks\" name=\"input[]\"></td>";
-													echo"<td>".$row['name'] . " </td>";
+													echo"<td>".$row['domain'] . " </td>";
 													echo"<td>".$row['email'] . " </td>";
 													echo"<td>".$row['pt'] . " </td>";
 													echo"<td>".$row['cost'] . " </td>";

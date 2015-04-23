@@ -12,9 +12,8 @@
                             <div class="col-sm-6">                               
                                 <form role="form" action="admin-blog-ekle.php" method="post">
                                     <div class="form-group"><label>Alan Adı</label> <input type="text" name="alanAdi" placeholder="Alan Adı" class="form-control"></div>
-                                    <div class="form-group"><label>Blog Adı</label> <input type="text" name="blogAdi" placeholder="Blog Adını/Blog Sahibi" class="form-control"></div>  
 									<div class="form-group"><label>İsim Soyisim</label> <input type="text" name="isimSoyisim" placeholder="İsim Soyisim" class="form-control"></div>
-									
+									<div class="form-group"><label>P*T Değeri</label> <input type="text" name="ptDegeri" placeholder="P*T Değeri" class="form-control"></div> 
                                 
                             </div>
                             <div class="col-sm-6">
@@ -43,8 +42,8 @@
 										{			
 											
 											
-											$updateQuery = "INSERT INTO blogs (domain, name, userName, email, phone, cost, contentProvider)
-													VALUES ('".$alanAdi."', '".$blogAdi."', '".$isimSoyisim."', '".$eposta."', '".$telefon."', '".$ucret."', '".$content_provider."')" ;
+											$updateQuery = "INSERT INTO blogs (domain, pt, userName, email, phone, cost, contentProvider)
+													VALUES ('".$alanAdi."', '".$ptDegeri."', '".$isimSoyisim."', '".$eposta."', '".$telefon."', '".$ucret."', '".$content_provider."')" ;
 													
 														
 											$result = mysql_query($updateQuery);

@@ -66,7 +66,7 @@
             <thead>
             <tr>
                 <th>Müsteri Adı</th>
-                <th>Blog Adı/Yazarı</th>
+                <th>Blog Adı</th>
                 <th>Tarih</th>
                 <th>Anahtar Kelime</th>
                 <th>URL</th>

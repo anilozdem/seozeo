@@ -43,13 +43,13 @@
 									
 									
 									<?php 
-									$checkData =  mysql_query("SELECT name FROM blogs") or die(mysql_error());	
+									$checkData =  mysql_query("SELECT domain FROM blogs") or die(mysql_error());	
 												
-									echo   '<div class="form-group"><label>Blog Adı/Blog Sahibi</label> 
+									echo   '<div class="form-group"><label>Blog Adı</label> 
 											<select class="form-control" name="blog">';
 											while($row= mysql_fetch_array($checkData))
 									{
-											echo "<option class=\"form-control\" value=\"$row[name]\">$row[name]</option>";
+											echo "<option class=\"form-control\" value=\"$row[domain]\">$row[domain]</option>";
 											
 									}
 									echo "</select></div>";
