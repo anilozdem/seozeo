@@ -162,7 +162,7 @@
 										//durumuna göre
 										else if($blogAdi=="blogtitle" and $durum!=="bos" and $ilkTarih=="" and $sonTarih==""){
 												
-												$getBlogs =  mysql_query("SELECT id, customer, blog, tags, url, topic, aim, date, status FROM assignment where status='$durum'") or die(mysql_error());
+												$getBlogs =  mysql_query("SELECT id, customer, blog, tags, url, topic, aim, date, status FROM assignment where customer='$durum'") or die(mysql_error());
 							
 												while($row= mysql_fetch_array($getBlogs))
 												{	echo"<tr>";
