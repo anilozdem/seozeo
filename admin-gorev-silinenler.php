@@ -19,23 +19,106 @@
             <div class="ibox-content">
             <div class="">
 			<a href="admin-gorevler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Hepsi</a>
-            <a href="admin-gorev-ekle.php" onclick="fnClickAddRow();" class="btn btn-primary ">Ekle</a>
-			<a href="admin-gorev-sil.php" onclick="fnClickAddRow();" class="btn btn-primary ">Sil</a>
+            <a href="admin-gorev-arsivlenenler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Arşivlenler</a>
 			<a href="admin-gorev-silinenler.php" onclick="fnClickAddRow();" class="btn btn-success ">Silinenler</a>
-			<a href="admin-gorev-arsivle.php" onclick="fnClickAddRow();" class="btn btn-primary ">Arşivle</a>
-			<a href="admin-gorev-arsivlenenler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Arşivlenler</a>
+			<a href="admin-gorev-yayinlananlar.php" onclick="fnClickAddRow();" class="btn btn-primary ">Yayınlananlar</a>
+			
             </div>
 			</br>
 			<div class="row" style="margin-bottom:10px;">
 				<div class="col-lg-6">
-						<div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-						 <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
+						<div class="input-group"><input type="text" placeholder="Arama" class="input-sm form-control"> <span class="input-group-btn">
+						 <button type="button" class="btn btn-sm btn-primary"> Ara</button> </span></div>
 				</div>	
+			
+				<br><br>
+					<div class="ibox float-e-margins" class="row" style="margin-bottom:10px;">
+                    <form role="form" action="admin-gorevler.php" method="post">                      						
+						
+							
+						<div class="form-group" >
+                            <div class="col-lg-3" class="form-group" id="data_1"> 
+                                <div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-try"></i></span><div class="form-group" > 
+											<select class="form-control" name="durum">
+											<option class="form-control" value="bos" selected>Müşteri </option>
+											<?php 
+												$checkData =  mysql_query("SELECT customer FROM assignment") or die(mysql_error());	
+
+														while($row= mysql_fetch_array($checkData))
+												{
+														echo "<option class=\"form-control\" value=\"$row[customer]\">$row[customer]</option>";
+														
+												}
+												echo "</select>";
+												
+												
+												?></div>
+                                </div>
+							</div>
+                        </div>
+						
+						
+						<div class="form-group" id="data_1">
+                            <div class="col-lg-3" class="form-group" id="data_1"> 
+                                <div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-desktop"></i></span>
+									<div class="form-group"> 
+											<select class="form-control" name="blogAdi">
+												<option class="form-control" value="blogtitle" selected>Blog Adı/Yazarı </option>
+												<?php 
+												$checkData =  mysql_query("SELECT blog FROM assignment") or die(mysql_error());	
+
+														while($row= mysql_fetch_array($checkData))
+												{
+														echo "<option class=\"form-control\" value=\"$row[blog]\">$row[blog]</option>";
+														
+												}
+												echo "</select>";
+												
+												
+												?></div>
+                                </div>
+							</div>
+                        </div>
+						
+						
+						<div class="form-group" id="data_1">
+                            <div class="col-lg-2" class="form-group" id="data_1"> 
+                                <div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="date" name="ilkTarih" value="bos" placeholder="23/04/2014" class="form-control">
+                                </div>
+							</div>
+                        </div>
+						
+						<div class="col-lg-2" class="form-group" id="data_1">
+                                
+                                <div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="date" name="sonTarih" value="bos" placeholder="23/06/2014" class="form-control" >
+                                </div>
+						</div>
+						
+						<div class="col-lg-2">
+								<button class="btn btn-primary" name="filtrele" type="submit">Filtrele</button>   
+						</div>
+						</form>
+						
+						
+						
+					
 			</div>
+			
+			
+				</form>
+			</div>
+			
+			
+			
             <table class="table table-striped table-bordered table-hover " id="editable" >
             <thead>
             <tr>
-                <th>Müsteri Adı</th>
+				<th>Seçilen</th>
+			    <th>Müsteri Adı</th>
                 <th>Blog Adı</th>
                 <th>Tarih</th>
                 <th>Anahtar Kelime</th>
@@ -47,13 +130,117 @@
 			
 			<tbody>
             <tr class="gradeX">
+			<form role="form" action="admin-gorevler.php" method="post">
 			<?php
-			$getBlogs =  mysql_query("SELECT customer, blog, tags, url, topic, aim, date, status FROM assignment where status='Silindi'") or die(mysql_error());
+							extract($_POST);
+							
+							if(isset($filtrele))
+										{
+											//hiçbir seçim yapmadan filtreleme								
+										if ($blogAdi=="blogtitle" and $durum=="bos" and $ilkTarih=="" and $sonTarih==""){
+											echo "Lütfen Arama Bilgilerinizi Kontrol Edin!";
+											
+										}
+										 //blog adına göre
+										else if($blogAdi!=="blogtitle" and $durum=="bos" and $ilkTarih=="" and $sonTarih==""){
+												
+												$getBlogs =  mysql_query("SELECT id, customer, blog, tags, url, topic, aim, date, status FROM assignment where blog='$blogAdi'") or die(mysql_error());
+							
+												while($row= mysql_fetch_array($getBlogs))
+												{	echo"<tr>";
+														echo"<td><input type=\"checkbox\" class=\"i-checks\" name=\"check_list[]\" value=".$row['id']."></td>";
+														echo"<td>".$row['customer'] . " </td>";
+														echo"<td>".$row['blog'] . " </td>";
+														echo"<td>".$row['date'] . " </td>";
+														echo"<td>".$row['tags'] . " </td>";
+														echo"<td>".$row['url'] . " </td>";
+														echo"<td>".$row['status'] . " </td></tr>";
+												}
+													
+											
+										}
+										//durumuna göre
+										else if($blogAdi=="blogtitle" and $durum!=="bos" and $ilkTarih=="" and $sonTarih==""){
+												
+												$getBlogs =  mysql_query("SELECT id, customer, blog, tags, url, topic, aim, date, status FROM assignment where status='$durum'") or die(mysql_error());
+							
+												while($row= mysql_fetch_array($getBlogs))
+												{	echo"<tr>";
+													echo"<td><input type=\"checkbox\" class=\"i-checks\" name=\"check_list[]\" value=".$row['id']."></td>";
+														echo"<td>".$row['customer'] . " </td>";
+														echo"<td>".$row['blog'] . " </td>";
+														echo"<td>".$row['date'] . " </td>";
+														echo"<td>".$row['tags'] . " </td>";
+														echo"<td>".$row['url'] . " </td>";
+														echo"<td>".$row['status'] . " </td></tr>";
+												}
+													
+											
+										}
+										//blog adı ve durumuna göre
+										else if($blogAdi!=="blogtitle" and $durum!=="bos" and $ilkTarih=="" and $sonTarih==""){
+												
+												$getBlogs =  mysql_query("SELECT id, customer, blog, tags, url, topic, aim, date, status FROM assignment where blog='$blogAdi' and status='$durum'") or die(mysql_error());
+							
+												while($row= mysql_fetch_array($getBlogs))
+												{	echo"<tr>";
+													echo"<td><input type=\"checkbox\" class=\"i-checks\" name=\"check_list[]\" value=".$row['id']."></td>";
+														echo"<td>".$row['customer'] . " </td>";
+														echo"<td>".$row['blog'] . " </td>";
+														echo"<td>".$row['date'] . " </td>";
+														echo"<td>".$row['tags'] . " </td>";
+														echo"<td>".$row['url'] . " </td>";
+														echo"<td>".$row['status'] . " </td></tr>";
+												}
+													
+											
+										}
+										//sadece tarih 
+										else if($blogAdi=="blogtitle" and $durum=="bos" and $ilkTarih!=="" and $sonTarih!==""){
+												
+												$getBlogs =  mysql_query("SELECT id, customer, blog, tags, url, topic, aim, date, status FROM assignment where date between '$ilkTarih' and '$sonTarih' ORDER by customer DESC") or die(mysql_error());
+							
+												while($row= mysql_fetch_array($getBlogs))
+												{	echo"<tr>";
+													echo"<td><input type=\"checkbox\" class=\"i-checks\" name=\"check_list[]\" value=".$row['id']."></td>";
+													echo"<td>".$row['customer'] . " </td>";
+													echo"<td>".$row['blog'] . " </td>";
+													echo"<td>".$row['date'] . " </td>";
+													echo"<td>".$row['tags'] . " </td>";
+													echo"<td>".$row['url'] . " </td>";
+													echo"<td>".$row['status'] . " </td></tr>";
+												}
+													
+											
+										}
+										
+										//hepsi seçiliyken
+										else {
+												
+												$getBlogs =  mysql_query("SELECT id, customer, blog, tags, url, topic, aim, date, status FROM assignment where blog='$blogAdi' and status='$durum' and date between '$ilkTarih' and '$sonTarih' ORDER by customer DESC") or die(mysql_error());
+							
+												while($row= mysql_fetch_array($getBlogs))
+												{	echo"<tr>";
+													echo"<td><input type=\"checkbox\" class=\"i-checks\" name=\"check_list[]\" value=".$row['id']."></td>";
+													echo"<td>".$row['customer'] . " </td>";
+													echo"<td>".$row['blog'] . " </td>";
+													echo"<td>".$row['date'] . " </td>";
+													echo"<td>".$row['tags'] . " </td>";
+													echo"<td>".$row['url'] . " </td>";
+													echo"<td>".$row['status'] . " </td></tr>";
+												}
+													
+											
+										}
+										}
+										
+							else{
+								$getBlogs =  mysql_query("SELECT customer,id, blog, tags, url, topic, aim, date, status FROM assignment where status='Arşivlendi'ORDER by date DESC") or die(mysql_error());
 	
 	
 						while($row= mysql_fetch_array($getBlogs))
 						{				echo"<tr>";
-										
+										echo"<td><input type=\"checkbox\" class=\"i-checks\" name=\"check_list[]\" value=".$row['id']."></td>";
 										echo"<td>".$row['customer'] . " </td>";
 										echo"<td>".$row['blog'] . " </td>";
 										echo"<td>".$row['date'] . " </td>";
@@ -64,20 +251,121 @@
 						}
 						
 						echo "</table>";
-			?>
-          
-           
-              
+								
+							}			
+							
+						?> 
+						
+						
  
             </tbody>
-            
-            </table>
-
-            </div>
+			</table>
+				<button class="btn btn-warning" name="ekle" type="submit">Ekle</button>  
+				<button class="btn btn-info" name="arsivle" type="submit">Arşivle</button> 
+				<button class="btn btn-primary" name="yayinlandi" type="submit">Yayınlandı Olarak İşaretle</button>   
+				<button class="btn btn-danger" name="sil" type="submit">Sil</button>  				
+           
+			</form>
+			
+				<?php
+						extract($_POST);
+							
+														
+							if(isset($sil)){
+										echo "<h2>Mesaj:</h2>";
+									
+										
+										
+										foreach($_POST['check_list'] as $selected) {
+										$deleteQuery = "delete from assignment where id='$selected'";
+										
+											
+										$result = mysql_query($deleteQuery);
+										
+											if($result){
+												echo "Görev başarılı bir şekilde silindi!";
+												echo "Silinen Görev ID:$selected <br>";
+												
+											}
+											else {
+												echo "<h2>Hata:</h2>";
+												echo "Görev silinemedi. Lütfen tekrar deneyiniz.";
+											}
+										
+										
+										}
+										header( "Refresh:1; url=admin-gorevler.php", true, 303);
+										
+							}
+							
+							else if(isset($arsivle)){
+										echo "<h2>Mesaj:</h2>";
+										
+												
+										foreach($_POST['check_list'] as $selected) {
+										
+										$archiveQ = "UPDATE assignment SET status='Arşivlendi' WHERE id='$selected'";
+										$result = mysql_query($archiveQ);
+										
+										if($result){
+											
+											echo "Görev başarılı bir şekilde arşivlendi!";
+											echo "Arşivlenen Görev ID:$selected <br>";
+											
+										}
+										else {
+											
+											echo "Görev silinemedi. Lütfen tekrar deneyiniz.";
+										}
+										
+										
+										}
+										header( "Refresh:1; url=admin-gorevler.php", true, 303);
+										
+								
+							}
+							
+							else if(isset($yayinlandi)){
+										echo "<h2>Mesaj:</h2>";
+										
+										foreach($_POST['check_list'] as $selected) {
+										
+										
+										
+										$archiveQ = "UPDATE assignment SET status='Yayınlandı' WHERE id='$selected'";
+										$result = mysql_query($archiveQ);
+										
+										if($result){
+											
+											echo "Görevin durumu Yayınlandı olarak değiştirildi!<br>";
+											echo "Yayınladı olarak işaretlenen görev ID:$selected <br>";
+											
+										}
+										else {
+											
+											echo "Görev durumu değiştirilemedi. Lütfen tekrar deneyiniz.";
+										}
+										
+										
+										}
+										header( "Refresh:1; url=admin-gorevler-yayinlandi.php", true, 303);
+								
+								
+							}
+							
+							else if(isset($ekle)){
+								header('Location: admin-gorev-ekle.php');
+								
+								
+								
+							}
+						
+						?>
+			 </div>
 						<div class="btn-group">
                                 <button type="button" class="btn btn-white"><i class="fa fa-chevron-left"></i></button>
-                                <button class="btn btn-white">1</button>
-                                <button class="btn btn-white  active">2</button>
+                                <button class="btn btn-white active">1</button>
+                                <button class="btn btn-white">2</button>
                                 <button class="btn btn-white">3</button>
                                 <button class="btn btn-white">4</button>
                                 <button type="button" class="btn btn-white"><i class="fa fa-chevron-right"></i> </button>

@@ -1,30 +1,63 @@
-<?php require('config.php'); ?>
 <?PHP include 'header.php'; ?>
+<?php require('config.php'); ?>
+<head>
 
-</br></br></br></br>
-
-<div class="wrapper wrapper-content animated fadeInRight">				
-		<div class="row" style="margin-bottom:10px;">			
-				<div class="col-lg-12">
-					<a href="admin-gorevler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Hepsi</a>
-					<a href="admin-gorev-ekle.php" onclick="fnClickAddRow();" class="btn btn-primary ">Ekle</a>
-					<a href="admin-gorev-sil.php" onclick="fnClickAddRow();" class="btn btn-danger ">Sil</a>
-					<a href="admin-gorev-silinenler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Silinenler</a>
-					<a href="admin-gorev-arsivle.php" onclick="fnClickAddRow();" class="btn btn-primary ">Arşivle</a>
-					<a href="admin-gorev-arsivlenenler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Arşivlenler</a>
-				</div>
-			</div>
-		
-		 <div class="row">
+    <!-- Data Tables -->
+    <link href="css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
+    <link href="css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
+	
+</head>
+<body>
+			</br></br></br></br>
+			        <div class="wrapper wrapper-content animated fadeInRight">
+            
+            <div class="row">
             <div class="col-lg-12">
             
             
             <div class="ibox-content">
-          
+            <div class="">
+			<a href="admin-gorevler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Hepsi</a>
+            <a href="admin-gorev-arsivlenenler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Arşivlenler</a>
+			<a href="admin-gorev-silinenler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Silinenler</a>
+			<a href="admin-gorev-yayinlananlar.php" onclick="fnClickAddRow();" class="btn btn-success ">Yayınlananlar</a>
 			
+            </div>
+			</br>
+			<div class="row" style="margin-bottom:10px;">
+				<div class="col-lg-6">
+						<div class="input-group"><input type="text" placeholder="Arama" class="input-sm form-control"> <span class="input-group-btn">
+						 <button type="button" class="btn btn-sm btn-primary"> Ara</button> </span></div>
+				</div>	
 			
-			<div class="ibox float-e-margins" class="row" style="margin-bottom:10px;">
-                    <form role="form" action="admin-gorev-sil.php" method="post">                      						
+				<br><br>
+					<div class="ibox float-e-margins" class="row" style="margin-bottom:10px;">
+                    <form role="form" action="admin-gorevler.php" method="post">                      						
+						
+							
+						<div class="form-group" >
+                            <div class="col-lg-3" class="form-group" id="data_1"> 
+                                <div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-try"></i></span><div class="form-group" > 
+											<select class="form-control" name="durum">
+											<option class="form-control" value="bos" selected>Müşteri </option>
+											<?php 
+												$checkData =  mysql_query("SELECT customer FROM assignment") or die(mysql_error());	
+
+														while($row= mysql_fetch_array($checkData))
+												{
+														echo "<option class=\"form-control\" value=\"$row[customer]\">$row[customer]</option>";
+														
+												}
+												echo "</select>";
+												
+												
+												?></div>
+                                </div>
+							</div>
+                        </div>
+						
 						
 						<div class="form-group" id="data_1">
                             <div class="col-lg-3" class="form-group" id="data_1"> 
@@ -34,33 +67,17 @@
 											<select class="form-control" name="blogAdi">
 												<option class="form-control" value="blogtitle" selected>Blog Adı/Yazarı </option>
 												<?php 
-												$checkData =  mysql_query("SELECT name FROM blogs") or die(mysql_error());	
+												$checkData =  mysql_query("SELECT blog FROM assignment") or die(mysql_error());	
 
 														while($row= mysql_fetch_array($checkData))
 												{
-														echo "<option class=\"form-control\" value=\"$row[name]\">$row[name]</option>";
+														echo "<option class=\"form-control\" value=\"$row[blog]\">$row[blog]</option>";
 														
 												}
-												echo "</select></div>";
+												echo "</select>";
 												
 												
-												?>
-                                </div>
-							</div>
-                        </div>
-						
-			
-						
-						<div class="form-group" >
-                            <div class="col-lg-3" class="form-group" id="data_1"> 
-                                <div class="input-group date">
-                                    <span class="input-group-addon"><i class="fa fa-try"></i></span><div class="form-group" > 
-											<select class="form-control" name="durum">
-											<option class="form-control" value="bos" selected>Durum </option>
-											<option class="form-control" value="Ödendi">Ödendi </option>
-											<option class="form-control" value="Bekliyor">Ödeme Bekliyor </option>
-											<option class="form-control" value="Ödenmedi">Ödenmedi </option>
-						</select></div>
+												?></div>
                                 </div>
 							</div>
                         </div>
@@ -92,26 +109,28 @@
 			</div>
 			
 			
+				</form>
+			</div>
 			
-			
-			<br><br><br><br>
 			
 			
             <table class="table table-striped table-bordered table-hover " id="editable" >
             <thead>
             <tr>
-                <th>Seçilen</th>
-				<th>Blog</th>
-                <th>Fiyat</th>
-                <th>Durum</th>
-                
+				<th>Seçilen</th>
+			    <th>Müsteri Adı</th>
+                <th>Blog Adı</th>
+                <th>Tarih</th>
+                <th>Anahtar Kelime</th>
+                <th>URL</th>
+				<th>Durum</th>
             </tr>
 			</thead>
 			
 			
 			<tbody>
             <tr class="gradeX">
-			<form role="form" action="admin-gorev-sil.php" method="post">
+			<form role="form" action="admin-gorevler.php" method="post">
 			<?php
 							extract($_POST);
 							
@@ -129,10 +148,13 @@
 							
 												while($row= mysql_fetch_array($getBlogs))
 												{	echo"<tr>";
-													echo"<td><input type=\"checkbox\" class=\"i-checks\" name=\"check_list[]\" value=".$row['id']."></td>";
-													echo"<td>".$row['blog'] . " </td>";
-													echo"<td>".$row['url'] . " </td>";
-													echo"<td>".$row['status'] . " </td></tr>";
+														echo"<td><input type=\"checkbox\" class=\"i-checks\" name=\"check_list[]\" value=".$row['id']."></td>";
+														echo"<td>".$row['customer'] . " </td>";
+														echo"<td>".$row['blog'] . " </td>";
+														echo"<td>".$row['date'] . " </td>";
+														echo"<td>".$row['tags'] . " </td>";
+														echo"<td>".$row['url'] . " </td>";
+														echo"<td>".$row['status'] . " </td></tr>";
 												}
 													
 											
@@ -145,9 +167,12 @@
 												while($row= mysql_fetch_array($getBlogs))
 												{	echo"<tr>";
 													echo"<td><input type=\"checkbox\" class=\"i-checks\" name=\"check_list[]\" value=".$row['id']."></td>";
-													echo"<td>".$row['blog'] . " </td>";
-													echo"<td>".$row['url'] . " </td>";
-													echo"<td>".$row['status'] . " </td></tr>";
+														echo"<td>".$row['customer'] . " </td>";
+														echo"<td>".$row['blog'] . " </td>";
+														echo"<td>".$row['date'] . " </td>";
+														echo"<td>".$row['tags'] . " </td>";
+														echo"<td>".$row['url'] . " </td>";
+														echo"<td>".$row['status'] . " </td></tr>";
 												}
 													
 											
@@ -160,9 +185,12 @@
 												while($row= mysql_fetch_array($getBlogs))
 												{	echo"<tr>";
 													echo"<td><input type=\"checkbox\" class=\"i-checks\" name=\"check_list[]\" value=".$row['id']."></td>";
-													echo"<td>".$row['blog'] . " </td>";
-													echo"<td>".$row['url'] . " </td>";
-													echo"<td>".$row['status'] . " </td></tr>";
+														echo"<td>".$row['customer'] . " </td>";
+														echo"<td>".$row['blog'] . " </td>";
+														echo"<td>".$row['date'] . " </td>";
+														echo"<td>".$row['tags'] . " </td>";
+														echo"<td>".$row['url'] . " </td>";
+														echo"<td>".$row['status'] . " </td></tr>";
 												}
 													
 											
@@ -175,7 +203,10 @@
 												while($row= mysql_fetch_array($getBlogs))
 												{	echo"<tr>";
 													echo"<td><input type=\"checkbox\" class=\"i-checks\" name=\"check_list[]\" value=".$row['id']."></td>";
+													echo"<td>".$row['customer'] . " </td>";
 													echo"<td>".$row['blog'] . " </td>";
+													echo"<td>".$row['date'] . " </td>";
+													echo"<td>".$row['tags'] . " </td>";
 													echo"<td>".$row['url'] . " </td>";
 													echo"<td>".$row['status'] . " </td></tr>";
 												}
@@ -191,7 +222,10 @@
 												while($row= mysql_fetch_array($getBlogs))
 												{	echo"<tr>";
 													echo"<td><input type=\"checkbox\" class=\"i-checks\" name=\"check_list[]\" value=".$row['id']."></td>";
+													echo"<td>".$row['customer'] . " </td>";
 													echo"<td>".$row['blog'] . " </td>";
+													echo"<td>".$row['date'] . " </td>";
+													echo"<td>".$row['tags'] . " </td>";
 													echo"<td>".$row['url'] . " </td>";
 													echo"<td>".$row['status'] . " </td></tr>";
 												}
@@ -200,54 +234,134 @@
 										}
 										}
 										
-										else{
-								$getBlogs =  mysql_query("SELECT id, customer, blog, tags, url, topic, aim, date, status FROM assignment") or die(mysql_error());
+							else{
+								$getBlogs =  mysql_query("SELECT customer,id, blog, tags, url, topic, aim, date, status FROM assignment where status='Yayınlandı'ORDER by date DESC") or die(mysql_error());
 	
 	
-									while($row= mysql_fetch_array($getBlogs))
-									{				echo"<tr>";
-													echo"<td><input type=\"checkbox\" class=\"i-checks\" name=\"check_list[]\" value=".$row['id']."></td>";
-													echo"<td>".$row['blog'] . " </td>";
-													echo"<td>".$row['url'] . " </td>";
-													echo"<td>".$row['status'] . " </td></tr>";
-													
-									}
-									
-									
-											
-										}			
+						while($row= mysql_fetch_array($getBlogs))
+						{				echo"<tr>";
+										echo"<td><input type=\"checkbox\" class=\"i-checks\" name=\"check_list[]\" value=".$row['id']."></td>";
+										echo"<td>".$row['customer'] . " </td>";
+										echo"<td>".$row['blog'] . " </td>";
+										echo"<td>".$row['date'] . " </td>";
+										echo"<td>".$row['tags'] . " </td>";
+										echo"<td>".$row['url'] . " </td>";
+										echo"<td>".$row['status'] . " </td></tr>";
+										
+						}
+						
+						echo "</table>";
+								
+							}			
 							
 						?> 
-					
 						
-			
+						
+ 
             </tbody>
+			</table>
+				<button class="btn btn-warning" name="ekle" type="submit">Ekle</button>  
+				<button class="btn btn-info" name="arsivle" type="submit">Arşivle</button> 
+				<button class="btn btn-primary" name="yayinlandi" type="submit">Yayınlandı Olarak İşaretle</button>   
+				<button class="btn btn-danger" name="sil" type="submit">Sil</button>  				
            
-            </table>
-			<div class="col-lg-12">
-				<button class="btn btn-primary" name="sil" type="submit">Sil</button>   
-				<button class="btn btn-primary" name="arsivle" type="submit">Arşivle</button> 
-				<button class="btn btn-primary" name="yayinlandi" type="submit">Yayınlandı Olarak İşaretle</button>   				
-			</div>
-				</form>		<br><br>
-						
-						
-						<?php
+			</form>
+			
+				<?php
 						extract($_POST);
 							
+														
 							if(isset($sil)){
-								echo "yihuuu";
-								echo "al amk";
+										echo "<h2>Mesaj:</h2>";
+									
+										
+										
+										foreach($_POST['check_list'] as $selected) {
+										$deleteQuery = "delete from assignment where id='$selected'";
+										
+											
+										$result = mysql_query($deleteQuery);
+										
+											if($result){
+												echo "Görev başarılı bir şekilde silindi!";
+												echo "Silinen Görev ID:$selected <br>";
+												
+											}
+											else {
+												echo "<h2>Hata:</h2>";
+												echo "Görev silinemedi. Lütfen tekrar deneyiniz.";
+											}
+										
+										
+										}
+										header( "Refresh:1; url=admin-gorevler.php", true, 303);
+										
+							}
 							
+							else if(isset($arsivle)){
+										echo "<h2>Mesaj:</h2>";
+										
+												
+										foreach($_POST['check_list'] as $selected) {
+										
+										$archiveQ = "UPDATE assignment SET status='Arşivlendi' WHERE id='$selected'";
+										$result = mysql_query($archiveQ);
+										
+										if($result){
+											
+											echo "Görev başarılı bir şekilde arşivlendi!";
+											echo "Arşivlenen Görev ID:$selected <br>";
+											
+										}
+										else {
+											
+											echo "Görev silinemedi. Lütfen tekrar deneyiniz.";
+										}
+										
+										
+										}
+										header( "Refresh:1; url=admin-gorevler.php", true, 303);
+										
 								
-								foreach($_POST['check_list'] as $selected) {
-								echo "<p>".$selected ."</p>";
-								}
+							}
+							
+							else if(isset($yayinlandi)){
+										echo "<h2>Mesaj:</h2>";
+										
+										foreach($_POST['check_list'] as $selected) {
+										
+										
+										
+										$archiveQ = "UPDATE assignment SET status='Yayınlandı' WHERE id='$selected'";
+										$result = mysql_query($archiveQ);
+										
+										if($result){
+											
+											echo "Görevin durumu Yayınlandı olarak değiştirildi!<br>";
+											echo "Yayınladı olarak işaretlenen görev ID:$selected <br>";
+											
+										}
+										else {
+											
+											echo "Görev durumu değiştirilemedi. Lütfen tekrar deneyiniz.";
+										}
+										
+										
+										}
+										header( "Refresh:1; url=admin-gorevler-yayinlandi.php", true, 303);
+								
+								
+							}
+							
+							else if(isset($ekle)){
+								header('Location: admin-gorev-ekle.php');
+								
+								
+								
 							}
 						
 						?>
-						
-            </div>
+			 </div>
 						<div class="btn-group">
                                 <button type="button" class="btn btn-white"><i class="fa fa-chevron-left"></i></button>
                                 <button class="btn btn-white active">1</button>
