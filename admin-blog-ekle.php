@@ -36,23 +36,25 @@
                         
 						<?php
 									extract($_POST);
+									$reg_date=date("Y-m-d");
 									
 									// write data if there is no error, display message.
 									 if(isset($blogEkle))
 										{			
 											
 											
-											$updateQuery = "INSERT INTO blogs (domain, pt, userName, email, phone, cost, contentProvider)
-													VALUES ('".$alanAdi."', '".$ptDegeri."', '".$isimSoyisim."', '".$eposta."', '".$telefon."', '".$ucret."', '".$content_provider."')" ;
+											$updateQuery = "INSERT INTO blogs (reg_date, domain, pt, userName, email, phone, cost, contentProvider)
+													VALUES ('".$reg_date."', '".$alanAdi."', '".$ptDegeri."', '".$isimSoyisim."', '".$eposta."', '".$telefon."', '".$ucret."', '".$content_provider."')" ;
 													
 														
 											$result = mysql_query($updateQuery);
 										
 											if($result){
 												
+												echo'<div class="alert alert-success"> ';
 												echo "<h2>Mesaj:</h2>";
-												echo "Blog Başarı ile Kaydedildi<br>";
 												echo "<br>Müşteri: ".$alanAdi."<br>"."Blog Adı/Yazarı: ".$isimSoyisim."<br>";
+												echo "</div>";
 											}
 											else {
 												echo "<h2>Mesaj:</h2>";

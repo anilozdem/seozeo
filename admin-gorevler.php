@@ -180,7 +180,7 @@
 										//blog adı ve durumuna göre
 										else if($blogAdi!=="blogtitle" and $durum!=="bos" and $ilkTarih=="" and $sonTarih==""){
 												
-												$getBlogs =  mysql_query("SELECT id, customer, blog, tags, url, topic, aim, date, status FROM assignment where blog='$blogAdi' and status='$durum'") or die(mysql_error());
+												$getBlogs =  mysql_query("SELECT id, customer, blog, tags, url, topic, aim, date, status FROM assignment where blog='$blogAdi' and customer='$durum'") or die(mysql_error());
 							
 												while($row= mysql_fetch_array($getBlogs))
 												{	echo"<tr>";
@@ -217,7 +217,7 @@
 										//hepsi seçiliyken
 										else {
 												
-												$getBlogs =  mysql_query("SELECT id, customer, blog, tags, url, topic, aim, date, status FROM assignment where blog='$blogAdi' and status='$durum' and date between '$ilkTarih' and '$sonTarih' ORDER by customer DESC") or die(mysql_error());
+												$getBlogs =  mysql_query("SELECT id, customer, blog, tags, url, topic, aim, date, status FROM assignment where blog='$blogAdi' and customer='$durum' and date between '$ilkTarih' and '$sonTarih' ORDER by customer DESC") or die(mysql_error());
 							
 												while($row= mysql_fetch_array($getBlogs))
 												{	echo"<tr>";
@@ -272,7 +272,7 @@
 							
 														
 							if(isset($sil)){
-										echo "<h2>Mesaj:</h2>";
+										
 									
 										
 										
@@ -283,9 +283,11 @@
 										$result = mysql_query($deleteQuery);
 										
 											if($result){
-												echo "Görev başarılı bir şekilde silindi!";
+												echo'<div class="alert alert-success"> ';
+												echo "<h2>Mesaj:</h2>";
+												echo "Görev başarılı bir şekilde silindi!<br>";
 												echo "Silinen Görev ID:$selected <br>";
-												
+												echo "</div>";
 											}
 											else {
 												echo "<h2>Hata:</h2>";
@@ -309,9 +311,11 @@
 										
 										if($result){
 											
-											echo "Görev başarılı bir şekilde arşivlendi!";
+											 echo '<div class="alert alert-success"> ';
+											 echo "<h2>Mesaj:</h2>";
+											echo "Görev başarılı bir şekilde arşivlendi!<br>";
 											echo "Arşivlenen Görev ID:$selected <br>";
-											
+											echo "</div>";
 										}
 										else {
 											
@@ -336,10 +340,11 @@
 										$result = mysql_query($archiveQ);
 										
 										if($result){
-											
+											echo'<div class="alert alert-success"> ';
+											echo "<h2>Mesaj:</h2>";
 											echo "Görevin durumu Yayınlandı olarak değiştirildi!<br>";
 											echo "Yayınladı olarak işaretlenen görev ID:$selected <br>";
-											
+											echo "</div>";
 										}
 										else {
 											
@@ -348,7 +353,7 @@
 										
 										
 										}
-										header( "Refresh:1; url=admin-gorevler-yayinlandi.php", true, 303);
+										header( "Refresh:1; url=admin-gorevler-yayinlananlar.php", true, 303);
 								
 								
 							}
