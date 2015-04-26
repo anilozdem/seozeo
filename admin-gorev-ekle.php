@@ -69,6 +69,7 @@
 							
 							<?php
 									extract($_POST);
+									$currentDate = date('Y-m-d H:i:s');
 									
 									// write data if there is no error, display message.
 									 if(isset($gorevEkle))
@@ -86,6 +87,16 @@
 												echo "<h2>Mesaj:</h2>";
 												echo "Görev Başarı ile Kaydedildi<br>";
 												echo "<br>Müşteri: ".$customer."<br>"."Blog Adı/Yazarı: ".$blog."<br>";
+												
+												$message="Yeni Görev Eklendi.";
+												$notifType="Görev";
+												$operationType="Eklendi";
+												
+												$notificationQ = "INSERT INTO notifications (notification, notification_date, item, type, operation)
+													VALUES ('".$message."', '".$currentDate."', '".$blog."', '".$notifType."', '".$operationType."')" ;
+																										
+												$notiresult = mysql_query($notificationQ);
+												
 											}
 											else {
 												echo "<h2>Mesaj:</h2>";

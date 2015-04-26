@@ -1,5 +1,6 @@
-<?PHP include 'header.php'; ?>
 <?php require('config.php'); ?>
+<?PHP include 'header.php'; ?>
+
 <head>
 
     <!-- Data Tables -->

@@ -1,5 +1,6 @@
-<?PHP include 'header.php'; ?>
 <?php require('config.php'); ?>
+<?PHP include 'header.php'; ?>
+
 <head>
 
     <!-- Data Tables -->
@@ -187,7 +188,7 @@
 										}
 										
 										else{
-								$getBlogs =  mysql_query("SELECT customer, blog, tags, url, topic, aim, date, status FROM assignment") or die(mysql_error());
+								$getBlogs =  mysql_query("SELECT customer, blog, tags, url, topic, aim, date, status FROM assignment where status='Yayınlandı'") or die(mysql_error());
 	
 	
 									while($row= mysql_fetch_array($getBlogs))

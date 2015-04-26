@@ -1,5 +1,6 @@
-<?PHP include 'header.php'; ?>
 <?php require('config.php'); ?>
+<?PHP include 'header.php'; ?>
+
 <head>
 
     <!-- Data Tables -->
@@ -266,28 +267,34 @@
 				<button class="btn btn-danger" name="sil" type="submit">Sil</button>  				
            
 			</form>
-			
+			<br>
 				<?php
 						extract($_POST);
-							
+							$currentDate = date('Y-m-d H:i:s');
 														
 							if(isset($sil)){
-										
-									
-										
-										
 										foreach($_POST['check_list'] as $selected) {
-										$deleteQuery = "delete from assignment where id='$selected'";
-										
-											
+									
+										$deleteQuery = "UPDATE assignment SET status='Silindi' WHERE id='$selected'";
 										$result = mysql_query($deleteQuery);
 										
-											if($result){
+										if($result){
 												echo'<div class="alert alert-success"> ';
 												echo "<h2>Mesaj:</h2>";
 												echo "Görev başarılı bir şekilde silindi!<br>";
 												echo "Silinen Görev ID:$selected <br>";
 												echo "</div>";
+												
+																								
+												$message="Görev Silindi.";
+												$notifType="Görev";
+												$operationType="Silindi";
+												
+												$notificationQ = "INSERT INTO notifications (notification, notification_date, item, type, operation)
+													VALUES ('".$message."', '".$currentDate."', '".$selected."', '".$notifType."', '".$operationType."')" ;
+																										
+												$notiresult = mysql_query($notificationQ);
+												
 											}
 											else {
 												echo "<h2>Hata:</h2>";
@@ -301,9 +308,6 @@
 							}
 							
 							else if(isset($arsivle)){
-										echo "<h2>Mesaj:</h2>";
-										
-												
 										foreach($_POST['check_list'] as $selected) {
 										
 										$archiveQ = "UPDATE assignment SET status='Arşivlendi' WHERE id='$selected'";
@@ -311,11 +315,20 @@
 										
 										if($result){
 											
-											 echo '<div class="alert alert-success"> ';
-											 echo "<h2>Mesaj:</h2>";
+											echo '<div class="alert alert-success"> ';
+											echo "<h2>Mesaj:</h2>";
 											echo "Görev başarılı bir şekilde arşivlendi!<br>";
 											echo "Arşivlenen Görev ID:$selected <br>";
 											echo "</div>";
+											
+												$message="Görev Arşivlendi.";
+												$notifType="Görev";
+												$operationType="Arşivlendi";
+												
+												$notificationQ = "INSERT INTO notifications (notification, notification_date, item, type, operation)
+													VALUES ('".$message."', '".$currentDate."', '".$selected."', '".$notifType."', '".$operationType."')" ;
+																										
+												$notiresult = mysql_query($notificationQ);
 										}
 										else {
 											
@@ -330,11 +343,7 @@
 							}
 							
 							else if(isset($yayinlandi)){
-										echo "<h2>Mesaj:</h2>";
-										
 										foreach($_POST['check_list'] as $selected) {
-										
-										
 										
 										$archiveQ = "UPDATE assignment SET status='Yayınlandı' WHERE id='$selected'";
 										$result = mysql_query($archiveQ);
@@ -345,6 +354,15 @@
 											echo "Görevin durumu Yayınlandı olarak değiştirildi!<br>";
 											echo "Yayınladı olarak işaretlenen görev ID:$selected <br>";
 											echo "</div>";
+											
+												$message="Görev Yayınlandı olarak işaretlendi.";
+												$notifType="Görev";
+												$operationType="Yayınlandı";
+												
+												$notificationQ = "INSERT INTO notifications (notification, notification_date, item, type, operation)
+													VALUES ('".$message."', '".$currentDate."', '".$selected."', '".$notifType."', '".$operationType."')" ;
+																										
+												$notiresult = mysql_query($notificationQ);
 										}
 										else {
 											
@@ -353,7 +371,7 @@
 										
 										
 										}
-										header( "Refresh:1; url=admin-gorevler-yayinlananlar.php", true, 303);
+										header( "Refresh:1; url=admin-gorevler.php", true, 303);
 								
 								
 							}

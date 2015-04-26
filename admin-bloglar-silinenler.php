@@ -1,5 +1,5 @@
-<?PHP include 'header.php'; ?>
 <?php require('config.php'); ?>
+<?PHP include 'header.php'; ?>
 <head>
 
     <!-- Data Tables -->
@@ -25,10 +25,10 @@
             
             <div class="ibox-content">
             <div class="">
-			<a href="admin-bloglar.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-success ">Hepsi</a>
+			<a href="admin-bloglar.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">Hepsi</a>
 			<a href="admin-bloglar-uygun-olanlar.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">Uygun Olanlar</a>
 			<a href="admin-bloglar-dondurulmus-hesaplar.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">Dondurulmuş Hesaplar</a>
-			<a href="admin-bloglar-silinenler.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">Silinenler</a>
+			<a href="admin-bloglar-silinenler.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-success ">Silinenler</a>
 			</div>
 			</br>
 			<div class="row" style="margin-bottom:10px;">

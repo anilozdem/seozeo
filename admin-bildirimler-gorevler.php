@@ -34,8 +34,8 @@
             
             <div class="ibox-content">
             <div class="">
-			<a href="admin-bildirimler.php" onclick="fnClickAddRow();" class="btn btn-success ">Hepsi</a>
-            <a href="admin-bildirimler-gorevler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Görevler</a>
+			<a href="admin-bildirimler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Hepsi</a>
+            <a href="admin-bildirimler-gorevler.php" onclick="fnClickAddRow();" class="btn btn-success ">Görevler</a>
 			<a href="admin-bildirimler-bloglar.php" onclick="fnClickAddRow();" class="btn btn-primary ">Bloglar</a>
 			<a href="admin-bildirimler-musteriler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Müşteriler</a>
 			<a href="admin-bildirimler-odemeler.php" onclick="fnClickAddRow();" class="btn btn-primary ">Ödemeler</a>
@@ -51,8 +51,8 @@
 						extract($_POST);
 							
 							
-						$getBlogs =  mysql_query("SELECT * FROM notifications where checked='0'") or die(mysql_error());
-						$count =  mysql_query("SELECT COUNT(*) FROM notifications where checked='0'") or die(mysql_error());
+						$getBlogs =  mysql_query("SELECT * FROM notifications where type='Görev' and checked='0'") or die(mysql_error());
+						$count =  mysql_query("SELECT COUNT(*) FROM notifications where type='Görev' and checked='0'") or die(mysql_error());
 						$countNotification = mysql_fetch_array($count);
 
 						$total = $countNotification[0];
@@ -66,7 +66,7 @@
 						else{								
 						while($row= mysql_fetch_array($getBlogs))
 						{	
-						
+					
 								
 								
 										if($row['operation']=="Eklendi"){
@@ -110,7 +110,7 @@
 							
 						}
 						
-						$getOld =  mysql_query("SELECT * FROM notifications where checked='1'") or die(mysql_error());
+						$getOld =  mysql_query("SELECT * FROM notifications where type='Görev' and checked='1'") or die(mysql_error());
 	
 						echo "<h2>Eski Bildirimler</h2>";
 								
