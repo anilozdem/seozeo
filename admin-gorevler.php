@@ -267,7 +267,7 @@
 				<button class="btn btn-danger" name="sil" type="submit">Sil</button>  				
            
 			</form>
-			<br>
+			<br><br>
 				<?php
 						extract($_POST);
 							$currentDate = date('Y-m-d H:i:s');

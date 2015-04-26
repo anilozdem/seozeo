@@ -100,8 +100,8 @@
 										
 										else {
 										echo '<div class="alert alert-warning">';
-										echo "Yeni Bildirim Yok";
-										echo '</div>'; 	
+										echo "<strong>".$row['notification']."</strong>&nbsp Göreve eklenen blog: <strong>".$row['item']."</strong>&nbsp&nbsp Ekleme tarihi:".$row['notification_date'];
+										echo '</div>';	
 											
 										}
 									
@@ -110,7 +110,7 @@
 							
 						}
 						
-						$getOld =  mysql_query("SELECT * FROM notifications where checked='1'") or die(mysql_error());
+						$getOld =  mysql_query("SELECT * FROM notifications where checked='1' order by  notification_date DESC  LIMIT 0, 10") or die(mysql_error());
 	
 						echo "<h2>Eski Bildirimler</h2>";
 								

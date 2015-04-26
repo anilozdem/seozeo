@@ -269,7 +269,7 @@
 			<br><br>
 				<?php
 						extract($_POST);
-							
+							$currentDate = date('Y-m-d H:i:s');
 														
 							if(isset($sil)){
 										
@@ -284,6 +284,16 @@
 												echo "Görev başarılı bir şekilde silindi!<br>";
 												echo "Silinen Görev ID:$selected <br>";
 												echo "</div>";
+												
+												$message="Blog Silindi.";
+												$notifType="Blog";
+												$operationType="Silindi";
+												
+												$notificationQ = "INSERT INTO notifications (notification, notification_date, item, type, operation)
+													VALUES ('".$message."', '".$currentDate."', '".$selected."', '".$notifType."', '".$operationType."')" ;
+																										
+												$notiresult = mysql_query($notificationQ);
+												
 											}
 											else {
 												echo "<h2>Hata:</h2>";
@@ -309,6 +319,15 @@
 											echo "Blog başarılı bir şekilde donduruldu!<br>";
 											echo "Dondurulan Görev ID:$selected <br>";
 											echo "</div>";
+											
+												$message="Blog Donduruldu.";
+												$notifType="Blog";
+												$operationType="Arşivlendi";
+												
+												$notificationQ = "INSERT INTO notifications (notification, notification_date, item, type, operation)
+													VALUES ('".$message."', '".$currentDate."', '".$selected."', '".$notifType."', '".$operationType."')" ;
+																										
+												$notiresult = mysql_query($notificationQ);
 										}
 										else {
 											
@@ -336,6 +355,16 @@
 											echo "Görevin durumu Uygun olarak değiştirildi!<br>";
 											echo "Uygun olarak işaretlenen görev ID:$selected <br>";
 											echo "</div>";
+											
+											$message="Blog Uygun olarak işaretlendi.";
+												$notifType="Blog";
+												$operationType="Uygun";
+												
+												$notificationQ = "INSERT INTO notifications (notification, notification_date, item, type, operation)
+													VALUES ('".$message."', '".$currentDate."', '".$selected."', '".$notifType."', '".$operationType."')" ;
+																										
+												$notiresult = mysql_query($notificationQ);
+											
 										}
 										else {
 											

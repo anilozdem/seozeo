@@ -45,7 +45,7 @@
 							
 							<?php
 									extract($_POST);
-									
+									$currentDate = date('Y-m-d H:i:s');
 									// write data if there is no error, display message.
 									 if(isset($musteriEkle))
 										{			
@@ -65,6 +65,16 @@
 												echo "<h2>Mesaj:</h2>";
 												echo "Müşteri Başarı ile Kaydedildi<br>";
 												echo "<br><strong>Müşteri:</strong> ".$musteriIsmi."<br>"."<strong>Yetkili Kişi:</strong> ".$yetkiliKisi."<br>";
+												
+												$message="Müşteri Eklendi.";
+												$notifType="Müşteri";
+												$operationType="Eklendi";
+												
+												$notificationQ = "INSERT INTO notifications (notification, notification_date, item, type, operation)
+													VALUES ('".$message."', '".$currentDate."', '".$musteriIsmi."', '".$notifType."', '".$operationType."')" ;
+																										
+												$notiresult = mysql_query($notificationQ);
+											
 											}
 											else {
 												echo "<h2>Mesaj:</h2>";

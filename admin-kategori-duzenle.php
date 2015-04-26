@@ -50,7 +50,7 @@
 							
 							<?php
 						extract($_POST);
-						
+						$currentDate = date('Y-m-d H:i:s');
 						if(isset($kategoriDuzenle)){
 						
 						$deleteQuery = "UPDATE tags SET tag='$guncelKategori' WHERE tag='$kategoriler'";
@@ -62,6 +62,15 @@
 							
 							echo "<h2>Mesaj:</h2>";
 							echo "Kategori başarılı bir şekilde güncellendi!<br>";
+							
+							$message="Kategori Düzenlendi.";
+							$notifType="Kategori";
+							$operationType="Düzenlendi";
+							
+							$notificationQ = "INSERT INTO notifications (notification, notification_date, item, type, operation)
+								VALUES ('".$message."', '".$currentDate."', '".$kategoriler."', '".$notifType."', '".$operationType."')" ;
+																					
+							$notiresult = mysql_query($notificationQ);
 							
 						}
 						else {

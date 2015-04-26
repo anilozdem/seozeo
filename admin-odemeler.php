@@ -32,11 +32,11 @@
 											<select class="form-control" name="blogAdi">
 												<option class="form-control" value="blogtitle" selected>Blog Adı/Yazarı </option>
 												<?php 
-												$checkData =  mysql_query("SELECT name FROM blogs") or die(mysql_error());	
+												$checkData =  mysql_query("SELECT blog FROM assignment") or die(mysql_error());	
 
 														while($row= mysql_fetch_array($checkData))
 												{
-														echo "<option class=\"form-control\" value=\"$row[name]\">$row[name]</option>";
+														echo "<option class=\"form-control\" value=\"$row[blog]\">$row[blog]</option>";
 														
 												}
 												echo "</select></div>";
@@ -56,7 +56,7 @@
 											<select class="form-control" name="durum">
 											<option class="form-control" value="bos" selected>Durum </option>
 											<option class="form-control" value="Ödendi">Ödendi </option>
-											<option class="form-control" value="Bekliyor">Ödeme Bekliyor </option>
+											<option class="form-control" value="Ödeme Bekliyor">Ödeme Bekliyor </option>
 											<option class="form-control" value="Ödenmedi">Ödenmedi </option>
 						</select></div>
                                 </div>
@@ -94,6 +94,7 @@
             <table class="table table-striped table-bordered table-hover " id="editable" >
             <thead>
             <tr>
+				<th>Seçilen</th>
                 <th>Blog</th>
                 <th>Fiyat</th>
                 <th>Durum</th>
@@ -104,9 +105,11 @@
 			
 			<tbody>
             <tr class="gradeX">
+			<form role="form" action="admin-odemeler.php" method="post">
 			<?php
 							extract($_POST);
-							
+							$tot_payment=0;
+							$numOfPayments=0;
 							if(isset($filtrele))
 										{
 											//hiçbir seçim yapmadan filtreleme								
@@ -117,13 +120,14 @@
 										 //blog adına göre
 										else if($blogAdi!=="blogtitle" and $durum=="bos" and $ilkTarih=="" and $sonTarih==""){
 												
-												$getBlogs =  mysql_query("SELECT customer, blog, tags, url, topic, aim, date, status FROM assignment where blog='$blogAdi'") or die(mysql_error());
+												$getBlogs =  mysql_query("SELECT blogs.cost, customer, blog, tags, url, topic, aim, date, payment_status FROM assignment, blogs where blog=domain and blog='$blogAdi'") or die(mysql_error());
 							
 												while($row= mysql_fetch_array($getBlogs))
 												{	echo"<tr>";
+													echo"<td><input type=\"checkbox\" class=\"i-checks\" name=\"check_list[]\" value=".$row['blog']."></td>";
 													echo"<td>".$row['blog'] . " </td>";
 													echo"<td>".$row['url'] . " </td>";
-													echo"<td>".$row['status'] . " </td></tr>";
+													echo"<td>".$row['payment_status'] . " </td></tr>";
 												}
 													echo "</table>";
 											
@@ -131,13 +135,14 @@
 										//durumuna göre
 										else if($blogAdi=="blogtitle" and $durum!=="bos" and $ilkTarih=="" and $sonTarih==""){
 												
-												$getBlogs =  mysql_query("SELECT customer, blog, tags, url, topic, aim, date, status FROM assignment where status='$durum'") or die(mysql_error());
+												$getBlogs =  mysql_query("SELECT blogs.cost, customer, blog, tags, url, topic, aim, date, payment_status FROM assignment,blogs where blog=domain and payment_status='$durum'") or die(mysql_error());
 							
 												while($row= mysql_fetch_array($getBlogs))
 												{	echo"<tr>";
+													echo"<td><input type=\"checkbox\" class=\"i-checks\" name=\"check_list[]\" value=".$row['blog']."></td>";
 													echo"<td>".$row['blog'] . " </td>";
 													echo"<td>".$row['url'] . " </td>";
-													echo"<td>".$row['status'] . " </td></tr>";
+													echo"<td>".$row['payment_status'] . " </td></tr>";
 												}
 													echo "</table>";
 											
@@ -145,13 +150,14 @@
 										//blog adı ve durumuna göre
 										else if($blogAdi!=="blogtitle" and $durum!=="bos" and $ilkTarih=="" and $sonTarih==""){
 												
-												$getBlogs =  mysql_query("SELECT customer, blog, tags, url, topic, aim, date, status FROM assignment where blog='$blogAdi' and status='$durum'") or die(mysql_error());
+												$getBlogs =  mysql_query("SELECT blogs.cost, customer, blog, tags, url, topic, aim, date, payment_status FROM assignment,blogs where blog=domain and blog='$blogAdi' and payment_status='$durum'") or die(mysql_error());
 							
 												while($row= mysql_fetch_array($getBlogs))
 												{	echo"<tr>";
+													echo"<td><input type=\"checkbox\" class=\"i-checks\" name=\"check_list[]\" value=".$row['blog']."></td>";
 													echo"<td>".$row['blog'] . " </td>";
 													echo"<td>".$row['url'] . " </td>";
-													echo"<td>".$row['status'] . " </td></tr>";
+													echo"<td>".$row['payment_status'] . " </td></tr>";
 												}
 													echo "</table>";
 											
@@ -159,13 +165,14 @@
 										//sadece tarih 
 										else if($blogAdi=="blogtitle" and $durum=="bos" and $ilkTarih!=="" and $sonTarih!==""){
 												
-												$getBlogs =  mysql_query("SELECT customer, blog, tags, url, topic, aim, date, status FROM assignment where date between '$ilkTarih' and '$sonTarih' ORDER by customer DESC") or die(mysql_error());
+												$getBlogs =  mysql_query("SELECT blogs.cost, customer, blog, tags, url, topic, aim, date, payment_status FROM assignment,blogs where blog=domain and date between '$ilkTarih' and '$sonTarih' ORDER by customer DESC") or die(mysql_error());
 							
 												while($row= mysql_fetch_array($getBlogs))
 												{	echo"<tr>";
+													echo"<td><input type=\"checkbox\" class=\"i-checks\" name=\"check_list[]\" value=".$row['blog']."></td>";
 													echo"<td>".$row['blog'] . " </td>";
 													echo"<td>".$row['url'] . " </td>";
-													echo"<td>".$row['status'] . " </td></tr>";
+													echo"<td>".$row['payment_status'] . " </td></tr>";
 												}
 													echo "</table>";
 											
@@ -174,13 +181,14 @@
 										//hepsi seçiliyken
 										else {
 												
-												$getBlogs =  mysql_query("SELECT customer, blog, tags, url, topic, aim, date, status FROM assignment where blog='$blogAdi' and status='$durum' and date between '$ilkTarih' and '$sonTarih' ORDER by customer DESC") or die(mysql_error());
+												$getBlogs =  mysql_query("SELECT blogs.cost, customer, blog, tags, url, topic, aim, date, payment_status FROM assignment,blogs where blog=domain and blog='$blogAdi' and payment_status='$durum' and date between '$ilkTarih' and '$sonTarih' ORDER by customer DESC") or die(mysql_error());
 							
 												while($row= mysql_fetch_array($getBlogs))
 												{	echo"<tr>";
+													echo"<td><input type=\"checkbox\" class=\"i-checks\" name=\"check_list[]\" value=".$row['blog']."></td>";
 													echo"<td>".$row['blog'] . " </td>";
 													echo"<td>".$row['url'] . " </td>";
-													echo"<td>".$row['status'] . " </td></tr>";
+													echo"<td>".$row['payment_status'] . " </td></tr>";
 												}
 													echo "</table>";
 											
@@ -188,28 +196,152 @@
 										}
 										
 										else{
-								$getBlogs =  mysql_query("SELECT customer, blog, tags, url, topic, aim, date, status FROM assignment where status='Yayınlandı'") or die(mysql_error());
-	
-	
-									while($row= mysql_fetch_array($getBlogs))
-									{				echo"<tr>";
-													
-													echo"<td>".$row['blog'] . " </td>";
-													echo"<td>".$row['url'] . " </td>";
-													echo"<td>".$row['status'] . " </td></tr>";
-													
-									}
-									
-									echo "</table>";
+											$getBlogs =  mysql_query("SELECT customer, cost, blog, tags, url, topic, aim, date, status, payment_status FROM assignment,blogs WHERE blog=domain and status='Yayınlandı'") or die(mysql_error());
+										
+		
+											while($row= mysql_fetch_array($getBlogs))
+											{				echo"<tr>";
+															echo"<td><input type=\"checkbox\" class=\"i-checks\" name=\"check_list[]\" value=".$row['blog']."></td>";
+															echo"<td>".$row['blog']."</td>";
+															echo"<td>".$row['cost']."</td>";
+															echo"<td>".$row['payment_status'] . " </td></tr>";
+											
+											$numOfPayments= $numOfPayments+1;
+											$tot_payment += $row['cost'];
+											}
+											echo"<tr>";
+											echo"<td></td>";
+											echo"<td><strong>Toplam Blog Sayısı:</strong> $numOfPayments</td>";
+											
+											echo"<td><strong>Toplam Ödeme:</strong> $tot_payment </td>";
+											echo"<td> </td></tr>";
+										
+										echo "</table>";
 											
 										}			
 							
 						?> 
  
-            </tbody>
+				</tbody>
             
-            </table>
-
+				</table>
+				<button class="btn btn-primary" name="odendi" type="submit">Ödendi Olarak İşaretle</button>  
+				<button class="btn btn-warning" name="bekliyor" type="submit">Bekliyor Olarak İşaretle</button>   
+				<button class="btn btn-danger" name="odenmedi" type="submit">Ödenmedi Olarak İşaretle</button> 
+				</form>
+			<br><br>
+			<?php
+						extract($_POST);
+							$currentDate = date('Y-m-d H:i:s');
+														
+							if(isset($odendi)){
+										foreach($_POST['check_list'] as $selected) {
+									
+										$deleteQuery = "UPDATE assignment SET payment_status='Ödendi' WHERE blog='$selected'";
+										$result = mysql_query($deleteQuery);
+										
+										if($result){
+												echo'<div class="alert alert-success"> ';
+												echo "<h2>Mesaj:</h2>";
+												echo "Ödeme başarılı bir şekilde yapıldı!<br>";
+												echo "Ödeme Yapılan Blog: $selected <br>";
+												echo "</div>";
+												
+																								
+												$message="Ödeme Yapıldı.";
+												$notifType="Ödeme";
+												$operationType="Yayınlandı";
+												
+												$notificationQ = "INSERT INTO notifications (notification, notification_date, item, type, operation)
+													VALUES ('".$message."', '".$currentDate."', '".$selected."', '".$notifType."', '".$operationType."')" ;
+																										
+												$notiresult = mysql_query($notificationQ);
+												
+											}
+											else {
+												echo "<h2>Hata:</h2>";
+												echo "Ödeme Yapılamadı. Lütfen tekrar deneyiniz.";
+											}
+										
+										
+										}
+										header( "Refresh:1; url=admin-odemeler.php", true, 303);
+										
+							}
+							
+							else if(isset($bekliyor)){
+										foreach($_POST['check_list'] as $selected) {
+										
+										$archiveQ = "UPDATE assignment SET payment_status='Ödeme Bekliyor' WHERE blog='$selected'";
+										$result = mysql_query($archiveQ);
+										
+										if($result){
+											
+											echo '<div class="alert alert-success"> ';
+											echo "<h2>Mesaj:</h2>";
+											echo "Ödeme durumu <strong> Bekliyor </strong> olarak değiştirildi!<br>";
+											echo "Durumu Değiştirilen Görev: $selected <br>";
+											echo "</div>";
+											
+												$message="Ödeme durumu <strong>Bekliyor </strong> olarak değiştirildi.";
+												$notifType="Ödeme";
+												$operationType="Arşivlendi";
+												
+												$notificationQ = "INSERT INTO notifications (notification, notification_date, item, type, operation)
+													VALUES ('".$message."', '".$currentDate."', '".$selected."', '".$notifType."', '".$operationType."')" ;
+																										
+												$notiresult = mysql_query($notificationQ);
+										}
+										else {
+											
+											echo "Görev silinemedi. Lütfen tekrar deneyiniz.";
+										}
+										
+										
+										}
+										header( "Refresh:1; url=admin-odemeler.php", true, 303);
+										
+								
+							}
+							
+							else if(isset($odenmedi)){
+										foreach($_POST['check_list'] as $selected) {
+										
+										$archiveQ = "UPDATE assignment SET payment_status='Ödenmedi' WHERE blog='$selected'";
+										$result = mysql_query($archiveQ);
+										
+										if($result){
+											echo'<div class="alert alert-success"> ';
+											echo "<h2>Mesaj:</h2>";
+											echo "Ödeme durumu Ödenmedi olarak değiştirildi!<br>";
+											echo "Ödeme Durumu Değiştirilen Blog: $selected <br>";
+											echo "</div>";
+											
+												$message="Ödeme durumu<strong> Ödenmedi </strong> olarak değiştirildi.";
+												$notifType="Ödeme";
+												$operationType="Yayınlandı";
+												
+												$notificationQ = "INSERT INTO notifications (notification, notification_date, item, type, operation)
+													VALUES ('".$message."', '".$currentDate."', '".$selected."', '".$notifType."', '".$operationType."')" ;
+																										
+												$notiresult = mysql_query($notificationQ);
+										}
+										else {
+											
+											echo "Görev durumu değiştirilemedi. Lütfen tekrar deneyiniz.";
+										}
+										
+										
+										}
+										header( "Refresh:1; url=admin-odemeler.php", true, 303);
+								
+								
+							}
+							
+							
+						
+						?>
+			
             </div>
 						<div class="btn-group">
                                 <button type="button" class="btn btn-white"><i class="fa fa-chevron-left"></i></button>

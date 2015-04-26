@@ -26,9 +26,9 @@
             
             <div class="ibox-content">
             <div class="">
-			<a href="admin-bloglar.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-success ">Hepsi</a>
+			<a href="admin-bloglar.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">Hepsi</a>
 			<a href="admin-bloglar-uygun-olanlar.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">Uygun Olanlar</a>
-			<a href="admin-bloglar-dondurulmus-hesaplar.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">Dondurulmuş Hesaplar</a>
+			<a href="admin-bloglar-dondurulmus-hesaplar.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-success ">Dondurulmuş Hesaplar</a>
 			<a href="admin-bloglar-silinenler.php" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">Silinenler</a>
 			</div>
 			</br>

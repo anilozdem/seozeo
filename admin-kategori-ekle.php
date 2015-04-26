@@ -32,7 +32,7 @@
 							
 							<?php
 		extract($_POST);
-	
+		$currentDate = date('Y-m-d H:i:s');
 		// write data if there is no error, display message.
 		 if(isset($kategoriEkle))
 			{	
@@ -41,7 +41,7 @@
 				
 				while($row= mysql_fetch_array($getBlogs))
 				{		
-				if($yenikategori=$row['tag']){
+				if($yenikategori==$row['tag']){
 					echo "<h3>Hata:</h3>";
 					echo "O kategori Zaten var.<br>";
 					break;
@@ -57,6 +57,17 @@
 						if($result){
 							echo "Yeni Kategori Başarılı bir şekilde eklendi.<br>";
 							echo "<br>Yeni Eklenen Kategori: ".$yenikategori."<br><br>";
+							
+							$message="Kategori Eklendi.";
+							$notifType="Kategori";
+							$operationType="Eklendi";
+							
+							$notificationQ = "INSERT INTO notifications (notification, notification_date, item, type, operation)
+								VALUES ('".$message."', '".$currentDate."', '".$yenikategori."', '".$notifType."', '".$operationType."')" ;
+																					
+							$notiresult = mysql_query($notificationQ);
+							
+							break;
 						}
 						else {
 							echo "Kategori eklenirken bir hata meydana geldi!";
