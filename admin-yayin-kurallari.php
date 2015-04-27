@@ -1,57 +1,80 @@
+<?php require('config.php'); ?>
 <?PHP include 'header.php'; ?>
 
-		<div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Paragraph text</h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
+		<div class="wrapper wrapper-content">
+
+                      
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Yayın Kuralları</h5>
+                            <button id="edit" class="btn btn-primary btn-xs m-l-sm" onclick="edit()" type="button">Düzenle</button>
+                            <button id="save" class="btn btn-primary  btn-xs" onclick="save()" type="button">Kaydet</button>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                
+                               
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="ibox-content">
-                        <p>Lorem ipsum <strong>eget urna mollis</strong> ornare vel eu leo. <em>Cum sociisnatoque penatibus</em> et magnis dis parturient montes, <code>code</code> nascetur
-                            ridiculus mus. Nullam id dolor id nibh ultricies vehicula ut id elit. Sed euismod aliquet sapien consequat tincidunt.</p>
+                        <div class="ibox-content no-padding">
 
-                        <p>Vivamus sagittis lacus vel augue laoreet <abbr title="" data-original-title="Sample abbreviation">rutrum faucibus dolor auctor</abbr>. Duis mollis, est non commodo
-                            luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Donec sed odio dui. Sed euismod aliquet sapien consequat tincidunt.</p>
+                            <div class="click2edit wrapper p-md">
+							<?php 
+							$getBlogs =  mysql_query("SELECT * FROM  publication_rules") or die(mysql_error());
+	
+	
+						while($row= mysql_fetch_array($getBlogs))
+						{			
+										
+										echo $row['text'];
+										
+										
+						}
+							?>
 
-                        <p>
-                            But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual.
-                        </p>
-						<p>Lorem ipsum <strong>eget urna mollis</strong> ornare vel eu leo. <em>Cum sociisnatoque penatibus</em> et magnis dis parturient montes, <code>code</code> nascetur
-                            ridiculus mus. Nullam id dolor id nibh ultricies vehicula ut id elit. Sed euismod aliquet sapien consequat tincidunt.</p>
-							<p>Lorem ipsum <strong>eget urna mollis</strong> ornare vel eu leo. <em>Cum sociisnatoque penatibus</em> et magnis dis parturient montes, <code>code</code> nascetur
-                            ridiculus mus. Nullam id dolor id nibh ultricies vehicula ut id elit. Sed euismod aliquet sapien consequat tincidunt.</p>
-							<p>Lorem ipsum <strong>eget urna mollis</strong> ornare vel eu leo. <em>Cum sociisnatoque penatibus</em> et magnis dis parturient montes, <code>code</code> nascetur
-                            ridiculus mus. Nullam id dolor id nibh ultricies vehicula ut id elit. Sed euismod aliquet sapien consequat tincidunt.</p>
-							<p>Lorem ipsum <strong>eget urna mollis</strong> ornare vel eu leo. <em>Cum sociisnatoque penatibus</em> et magnis dis parturient montes, <code>code</code> nascetur
-                            ridiculus mus. Nullam id dolor id nibh ultricies vehicula ut id elit. Sed euismod aliquet sapien consequat tincidunt.</p>
-							<p>Lorem ipsum <strong>eget urna mollis</strong> ornare vel eu leo. <em>Cum sociisnatoque penatibus</em> et magnis dis parturient montes, <code>code</code> nascetur
-                            ridiculus mus. Nullam id dolor id nibh ultricies vehicula ut id elit. Sed euismod aliquet sapien consequat tincidunt.</p>
-							<p>Lorem ipsum <strong>eget urna mollis</strong> ornare vel eu leo. <em>Cum sociisnatoque penatibus</em> et magnis dis parturient montes, <code>code</code> nascetur
-                            ridiculus mus. Nullam id dolor id nibh ultricies vehicula ut id elit. Sed euismod aliquet sapien consequat tincidunt.</p>
+							  
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
-			
-			<div class="">
-            <a href="" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">Duzenle</a>
-			<a href="" onclick="fnClickAddRow();" href="javascript:void(0);" class="btn btn-primary ">Kaydet</a>
+
             </div>
+			
+			<!-- Mainly scripts -->
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+
+    <!-- SUMMERNOTE -->
+    <script src="js/plugins/summernote/summernote.min.js"></script>
+
+			<script>
+				$(document).ready(function(){
+
+					$('.summernote').summernote();
+
+			   });
+				var edit = function() {
+					$('.click2edit').summernote({focus: true});
+				};
+				var save = function() {
+					var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
+					$('.click2edit').destroy();
+				};
+			</script>
 
 
 <?PHP include 'footer.php'; ?>

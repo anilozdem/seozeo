@@ -38,13 +38,26 @@
 									extract($_POST);
 									$reg_date=date("Y-m-d");
 									
+									function generateRandomString($length = 10) {
+										$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+										$charactersLength = strlen($characters);
+										$randomString = '';
+										for ($i = 0; $i < $length; $i++) {
+											$randomString .= $characters[rand(0, $charactersLength - 1)];
+										}
+										return $randomString;
+									}
+									
+															
+									
+									
 									// write data if there is no error, display message.
 									 if(isset($blogEkle))
 										{			
 											
 											
-											$updateQuery = "INSERT INTO blogs (reg_date, domain, pt, userName, email, phone, cost, contentProvider)
-													VALUES ('".$reg_date."', '".$alanAdi."', '".$ptDegeri."', '".$isimSoyisim."', '".$eposta."', '".$telefon."', '".$ucret."', '".$content_provider."')" ;
+											$updateQuery = "INSERT INTO blogs (reg_date, domain, pt, userName, email, phone, cost, contentProvider, password)
+													VALUES ('".$reg_date."', '".$alanAdi."', '".$ptDegeri."', '".$isimSoyisim."', '".$eposta."', '".$telefon."', '".$ucret."', '".$content_provider."','".generateRandomString()."')" ;
 													
 														
 											$result = mysql_query($updateQuery);

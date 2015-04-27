@@ -37,8 +37,33 @@
     <!-- Sparkline demo data  -->
     <script src="js/demo/sparkline-demo.js"></script>
 
-    <script>
+    
+    <!-- Mainly scripts -->
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+
+    <!-- SUMMERNOTE -->
+    <script src="js/plugins/summernote/summernote.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+
+            $('.summernote').summernote();
+
+       });
+        var edit = function() {
+            $('.click2edit').summernote({focus: true});
+        };
+        var save = function() {
+            var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
+            $('.click2edit').destroy();
+        };
     </script>
 </body>
 </html>

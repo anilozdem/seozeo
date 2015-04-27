@@ -30,11 +30,15 @@
 	
 	<link href="css/plugins/nouslider/jquery.nouislider.css" rel="stylesheet">
 	
+	 <link href="css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+	
 	   <!-- Data picker -->
 	   
 	<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
 	<link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
-
+	
+	
 </head>
 
 <body>
